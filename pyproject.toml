@@ -36,7 +36,7 @@ dependencies = [
     "typing-extensions >=4.12.0",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 numtype = [
     "numtype @ git+https://github.com/numpy/numtype.git@e436b884d7b3f7831790da67a95aa6dfda2e57f7",
 ]
