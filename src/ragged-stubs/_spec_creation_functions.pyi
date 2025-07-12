@@ -693,14 +693,14 @@ def empty(
 def empty(
     shape: _RegularShapeT,
     *,
-    dtype: onp.AnyFloat64DType = ...,
+    dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[np.float64]]: ...
 @overload
 def empty(
     shape: int,
     *,
-    dtype: onp.AnyFloat64DType = ...,
+    dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float64]]: ...
 @overload
@@ -1033,7 +1033,7 @@ def eye(
     /,
     *,
     k: int = ...,
-    dtype: onp.AnyFloat64DType = ...,
+    dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int, int], Dtype[np.float64]]: ...
 @overload
@@ -1854,14 +1854,14 @@ def ones(
 def ones(
     shape: _RegularShapeT,
     *,
-    dtype: onp.AnyFloat64DType = ...,
+    dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[np.float64]]: ...
 @overload
 def ones(
     shape: int,
     *,
-    dtype: onp.AnyFloat64DType = ...,
+    dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float64]]: ...
 @overload
@@ -2197,14 +2197,14 @@ def zeros(
 def zeros(
     shape: _RegularShapeT,
     *,
-    dtype: onp.AnyFloat64DType = ...,
+    dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[np.float64]]: ...
 @overload
 def zeros(
     shape: int,
     *,
-    dtype: onp.AnyFloat64DType = ...,
+    dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float64]]: ...
 @overload
