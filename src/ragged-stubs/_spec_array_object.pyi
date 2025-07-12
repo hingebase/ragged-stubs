@@ -1195,7 +1195,12 @@ class array(  # noqa: N801
 _BoolOrIntDType: TypeAlias = Dtype[np.bool_ | np.integer[Any]]
 _BoolOrIntDTypeT = TypeVar("_BoolOrIntDTypeT", bound=_BoolOrIntDType)
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
-_DTypeT_co = TypeVar("_DTypeT_co", bound=Dtype, covariant=True, default=Dtype)
+_DTypeT_co = TypeVar(
+    "_DTypeT_co",
+    bound=Dtype,
+    covariant=True,
+    default=np.dtype[Any],
+)
 _InexactDType: TypeAlias = Dtype[np.inexact[Any]]
 _NumberT = TypeVar("_NumberT", bound=np.number[Any])
 _NumericDType: TypeAlias = Dtype[np.number[Any]]
@@ -1208,4 +1213,9 @@ _RealNumber: TypeAlias = np.integer[Any] | np.floating[Any]
 _RegularShapeT = TypeVar("_RegularShapeT", bound=tuple[int, ...])
 _SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
 _ShapeT = TypeVar("_ShapeT", bound=Shape)
-_ShapeT_co = TypeVar("_ShapeT_co", bound=Shape, covariant=True, default=Shape)
+_ShapeT_co = TypeVar(
+    "_ShapeT_co",
+    bound=Shape,
+    covariant=True,
+    default=tuple[Any, ...],
+)
