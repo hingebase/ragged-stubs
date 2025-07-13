@@ -27,7 +27,9 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 from collections.abc import Sequence
-from typing import Any, TypeVar
+from typing import Any, SupportsIndex, TypeVar, overload
+
+from typing_extensions import Unpack
 
 from ._spec_array_object import array
 from ._typing import Dtype
@@ -35,11 +37,26 @@ from ._typing import Dtype
 def broadcast_arrays(
     arrays: array[Any, _DTypeT],
 ) -> list[array[Any, _DTypeT]]: ...
+
+@overload
 def broadcast_to(
     x: array[Any, _DTypeT],
     /,
-    shape: int | tuple[int, ...],
-) -> array[Any, _DTypeT]: ...
+    shape: _RegularShapeT,
+) -> array[_RegularShapeT, _DTypeT]: ...
+@overload
+def broadcast_to(
+    x: array[Any, _DTypeT],
+    /,
+    shape: SupportsIndex,
+) -> array[tuple[int], _DTypeT]: ...
+@overload
+def broadcast_to(
+    x: array[Any, _DTypeT],
+    /,
+    shape: Sequence[SupportsIndex],
+) -> array[tuple[int, ...], _DTypeT]: ...
+
 def concat(arrays: Sequence[array], /, *, axis: int | None = ...) -> array: ...
 def expand_dims(
     x: array[Any, _DTypeT],
@@ -58,13 +75,32 @@ def permute_dims(
     /,
     axes: tuple[int, ...],
 ) -> array[Any, _DTypeT]: ...
+
+@overload
 def reshape(
     x: array[Any, _DTypeT],
     /,
-    shape: int | tuple[int, ...],
+    shape: _RegularShapeT,
     *,
     copy: bool | None = ...,
-) -> array[Any, _DTypeT]: ...
+) -> array[_RegularShapeT, _DTypeT]: ...
+@overload
+def reshape(
+    x: array[Any, _DTypeT],
+    /,
+    shape: SupportsIndex,
+    *,
+    copy: bool | None = ...,
+) -> array[tuple[int], _DTypeT]: ...
+@overload
+def reshape(
+    x: array[Any, _DTypeT],
+    /,
+    shape: Sequence[SupportsIndex],
+    *,
+    copy: bool | None = ...,
+) -> array[tuple[int, ...], _DTypeT]: ...
+
 def roll(
     x: array[Any, _DTypeT],
     /,
@@ -80,3 +116,16 @@ def squeeze(
 def stack(arrays: Sequence[array], /, *, axis: int = ...) -> array: ...
 
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
+_RegularShapeT = TypeVar(
+    "_RegularShapeT",
+    tuple[()],
+    tuple[int],
+    tuple[int, int],
+    tuple[int, int, int],
+    tuple[int, int, int, int],
+    tuple[int, int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, Unpack[tuple[int, ...]]],
+    tuple[int, Unpack[tuple[int, ...]]],
+    tuple[int, ...],
+)

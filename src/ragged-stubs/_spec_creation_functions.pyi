@@ -27,12 +27,14 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 import enum
-from typing import Any, Literal, TypeAlias, TypeVar, overload
+from collections.abc import Sequence
+from typing import Any, Literal, SupportsIndex, TypeAlias, TypeVar, overload
 
 import numpy as np
 import optype as op
 import optype.numpy as onp
 from optype.dlpack import CanDLPackDevice
+from typing_extensions import Unpack
 
 from ._spec_array_object import array
 from ._typing import Device, Dtype, Shape
@@ -684,11 +686,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[_SCT]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.ToDType[_SCT],
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[_SCT]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.ToDType[_SCT],
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[_SCT]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -698,11 +707,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.float64]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float64]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyFloat64DType | None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float64]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -712,11 +728,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: _Bool,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.bool_]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: _Bool,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.bool_]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -726,11 +749,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.int8]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt8DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int8]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt8DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int8]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -740,11 +770,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.int16]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt16DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int16]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt16DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int16]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -754,11 +791,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.int32]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int32]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int32]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -768,11 +812,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.int64]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int64]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int64]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -782,11 +833,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.uint8]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt8DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint8]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt8DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint8]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -796,11 +854,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.uint16]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt16DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint16]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt16DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint16]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -810,11 +875,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.uint32]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint32]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint32]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -824,11 +896,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.uint64]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint64]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint64]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -838,11 +917,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.float32]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyFloat32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float32]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyFloat32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float32]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -853,11 +939,18 @@ def empty(
 @overload
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyComplex64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex64]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyComplex64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex64]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -867,11 +960,18 @@ def empty(
 ) -> array[_RegularShapeT, Dtype[np.complex128]]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyComplex128DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex128]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyComplex128DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex128]]: ...
 @overload
 def empty(
     shape: _RegularShapeT,
@@ -881,11 +981,18 @@ def empty(
 ) -> array[_RegularShapeT]: ...
 @overload
 def empty(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: type[Any] | str,
     device: Device | None = ...,
 ) -> array[tuple[int]]: ...
+@overload
+def empty(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: type[Any] | str,
+    device: Device | None = ...,
+) -> array[tuple[int, ...]]: ...
 
 @overload
 def empty_like(
@@ -1182,12 +1289,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[_SCT]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.ToDType[_SCT],
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[_SCT]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.ToDType[_SCT],
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[_SCT]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1198,12 +1313,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[_SCT]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: _SCT,
     *,
     dtype: None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[_SCT]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: _SCT,
+    *,
+    dtype: None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[_SCT]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1214,12 +1337,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: bool,
     *,
     dtype: None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.bool_]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: bool,
+    *,
+    dtype: None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.bool_]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1230,12 +1361,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.int64]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: op.JustInt,
     *,
     dtype: None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int64]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: op.JustInt,
+    *,
+    dtype: None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int64]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1246,12 +1385,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.float64]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: op.JustFloat,
     *,
     dtype: None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float64]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: op.JustFloat,
+    *,
+    dtype: None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float64]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1262,12 +1409,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.complex128]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: op.JustComplex,
     *,
     dtype: None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex128]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: op.JustComplex,
+    *,
+    dtype: None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex128]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1278,12 +1433,20 @@ def full(
 ) -> array[_RegularShapeT]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1294,12 +1457,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: _Bool,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.bool_]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: _Bool,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.bool_]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1310,12 +1481,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.int8]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyInt8DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int8]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyInt8DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int8]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1326,12 +1505,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.int16]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyInt16DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int16]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyInt16DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int16]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1342,12 +1529,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.int32]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyInt32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int32]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyInt32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int32]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1358,12 +1553,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.int64]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyInt64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int64]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyInt64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int64]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1374,12 +1577,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.uint8]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyUInt8DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint8]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyUInt8DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint8]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1390,12 +1601,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.uint16]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyUInt16DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint16]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyUInt16DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint16]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1406,12 +1625,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.uint32]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyUInt32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint32]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyUInt32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint32]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1422,12 +1649,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.uint64]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyUInt64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint64]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyUInt64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint64]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1438,12 +1673,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.float32]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyFloat32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float32]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyFloat32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float32]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1454,12 +1697,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.float64]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyFloat64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float64]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyFloat64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float64]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1470,12 +1721,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.complex64]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyComplex64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex64]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyComplex64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex64]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1486,12 +1745,20 @@ def full(
 ) -> array[_RegularShapeT, Dtype[np.complex128]]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: onp.AnyComplex128DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex128]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: onp.AnyComplex128DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex128]]: ...
 @overload
 def full(
     shape: _RegularShapeT,
@@ -1502,12 +1769,20 @@ def full(
 ) -> array[_RegularShapeT]: ...
 @overload
 def full(
-    shape: int,
+    shape: SupportsIndex,
     fill_value: object,
     *,
     dtype: type[Any] | str,
     device: Device | None = ...,
 ) -> array[tuple[int]]: ...
+@overload
+def full(
+    shape: Sequence[SupportsIndex],
+    fill_value: object,
+    *,
+    dtype: type[Any] | str,
+    device: Device | None = ...,
+) -> array[tuple[int, ...]]: ...
 
 @overload
 def full_like(
@@ -1845,11 +2120,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[_SCT]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.ToDType[_SCT],
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[_SCT]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.ToDType[_SCT],
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[_SCT]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1859,11 +2141,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.float64]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float64]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyFloat64DType | None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float64]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1873,11 +2162,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: _Bool,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.bool_]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: _Bool,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.bool_]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1887,11 +2183,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.int8]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt8DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int8]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt8DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int8]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1901,11 +2204,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.int16]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt16DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int16]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt16DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int16]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1915,11 +2225,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.int32]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int32]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int32]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1929,11 +2246,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.int64]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int64]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int64]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1943,11 +2267,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.uint8]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt8DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint8]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt8DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint8]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1957,11 +2288,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.uint16]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt16DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint16]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt16DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint16]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1971,11 +2309,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.uint32]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint32]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint32]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1985,11 +2330,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.uint64]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint64]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint64]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -1999,11 +2351,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.float32]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyFloat32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float32]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyFloat32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float32]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -2013,11 +2372,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.complex64]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyComplex64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex64]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyComplex64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex64]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -2027,11 +2393,18 @@ def ones(
 ) -> array[_RegularShapeT, Dtype[np.complex128]]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyComplex128DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex128]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyComplex128DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex128]]: ...
 @overload
 def ones(
     shape: _RegularShapeT,
@@ -2041,11 +2414,18 @@ def ones(
 ) -> array[_RegularShapeT]: ...
 @overload
 def ones(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: type[Any] | str,
     device: Device | None = ...,
 ) -> array[tuple[int]]: ...
+@overload
+def ones(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: type[Any] | str,
+    device: Device | None = ...,
+) -> array[tuple[int, ...]]: ...
 
 @overload
 def ones_like(
@@ -2188,11 +2568,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[_SCT]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.ToDType[_SCT],
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[_SCT]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.ToDType[_SCT],
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[_SCT]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2202,11 +2589,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.float64]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyFloat64DType | None = ...,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float64]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyFloat64DType | None = ...,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float64]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2216,11 +2610,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: _Bool,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.bool_]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: _Bool,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.bool_]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2230,11 +2631,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.int8]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt8DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int8]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt8DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int8]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2244,11 +2652,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.int16]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt16DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int16]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt16DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int16]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2258,11 +2673,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.int32]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int32]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int32]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2272,11 +2694,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.int64]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyInt64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.int64]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyInt64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.int64]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2286,11 +2715,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.uint8]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt8DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint8]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt8DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint8]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2300,11 +2736,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.uint16]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt16DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint16]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt16DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint16]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2314,11 +2757,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.uint32]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint32]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint32]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2328,11 +2778,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.uint64]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyUInt64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.uint64]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyUInt64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.uint64]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2342,11 +2799,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.float32]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyFloat32DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.float32]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyFloat32DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.float32]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2356,11 +2820,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.complex64]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyComplex64DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex64]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyComplex64DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex64]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2370,11 +2841,18 @@ def zeros(
 ) -> array[_RegularShapeT, Dtype[np.complex128]]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: onp.AnyComplex128DType,
     device: Device | None = ...,
 ) -> array[tuple[int], Dtype[np.complex128]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: onp.AnyComplex128DType,
+    device: Device | None = ...,
+) -> array[tuple[int, ...], Dtype[np.complex128]]: ...
 @overload
 def zeros(
     shape: _RegularShapeT,
@@ -2384,11 +2862,18 @@ def zeros(
 ) -> array[_RegularShapeT]: ...
 @overload
 def zeros(
-    shape: int,
+    shape: SupportsIndex,
     *,
     dtype: type[Any] | str,
     device: Device | None = ...,
 ) -> array[tuple[int]]: ...
+@overload
+def zeros(
+    shape: Sequence[SupportsIndex],
+    *,
+    dtype: type[Any] | str,
+    device: Device | None = ...,
+) -> array[tuple[int, ...]]: ...
 
 @overload
 def zeros_like(
@@ -2534,6 +3019,18 @@ _NumberT = TypeVar("_NumberT", bound=np.number[Any])
 _NumPyDType: TypeAlias = np.dtype[
     np.bool_ | np.number[Any] | np.datetime64 | np.timedelta64
 ]
-_RegularShapeT = TypeVar("_RegularShapeT", bound=tuple[int, ...])
+_RegularShapeT = TypeVar(
+    "_RegularShapeT",
+    tuple[()],
+    tuple[int],
+    tuple[int, int],
+    tuple[int, int, int],
+    tuple[int, int, int, int],
+    tuple[int, int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, Unpack[tuple[int, ...]]],
+    tuple[int, Unpack[tuple[int, ...]]],
+    tuple[int, ...],
+)
 _SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
 _ShapeT = TypeVar("_ShapeT", bound=Shape)
