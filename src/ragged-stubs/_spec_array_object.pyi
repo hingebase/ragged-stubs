@@ -611,7 +611,7 @@ class array(  # noqa: N801
     def __contains__(self, other: complex) -> bool: ...
     def __len__(self) -> int: ...
     def __iter__(
-        self: array[tuple[int, Unpack[tuple[int | None, ...]]], _DTypeT],
+        self: array[tuple[int, Unpack[tuple[_Axis, ...]]], _DTypeT],
     ) -> Iterator[array[Any, _DTypeT]]: ...
 
     @overload
@@ -647,14 +647,17 @@ class array(  # noqa: N801
     def tolist(self: array[tuple[()]]) -> complex: ...
     @overload
     def tolist(
-        self: array[tuple[int, Unpack[tuple[int | None, ...]]]],
+        self: array[tuple[int, Unpack[tuple[_Axis, ...]]]],
     ) -> onp.SequenceND[complex]: ...
 
     @property
     def dtype(self) -> _DTypeT_co: ...
     @property
     def device(self) -> Device: ...
-    def mT(self) -> array[Any, _DTypeT_co]: ...  # noqa: N802
+    @property
+    def mT(  # noqa: N802
+        self: array[_AtLeast2DT, _DTypeT],
+    ) -> array[_AtLeast2DT, _DTypeT]: ...
     @property
     def ndim(self) -> int: ...
     @property
@@ -662,7 +665,7 @@ class array(  # noqa: N801
     @property
     def size(self) -> int: ...
     @property
-    def T(self) -> array[Any, _DTypeT_co]: ...  # noqa: N802
+    def T(self: array[_2DT, _DTypeT]) -> array[_2DT, _DTypeT]: ...  # noqa: N802
     def __abs__(self) -> Self: ...
 
     @overload
@@ -1192,6 +1195,23 @@ class array(  # noqa: N801
     __rlshift__ = __lshift__
     __rrshift__ = __rshift__
 
+_2DT = TypeVar("_2DT", tuple[int, int], tuple[int, _Axis])
+_AtLeast2DT = TypeVar(
+    "_AtLeast2DT",
+    tuple[int, int],
+    tuple[int, int, int],
+    tuple[int, int, int, int],
+    tuple[int, int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, Unpack[tuple[int, ...]]],
+    tuple[int, _Axis],
+    tuple[int, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
+)
+_Axis: TypeAlias = int | None
 _BoolOrIntDType: TypeAlias = Dtype[np.bool_ | np.integer[Any]]
 _BoolOrIntDTypeT = TypeVar("_BoolOrIntDTypeT", bound=_BoolOrIntDType)
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)

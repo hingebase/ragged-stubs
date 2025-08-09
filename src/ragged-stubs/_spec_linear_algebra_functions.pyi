@@ -27,13 +27,18 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 from collections.abc import Sequence
-from typing import Any, TypeVar
+from typing import TypeAlias, TypeVar
+
+from typing_extensions import Unpack
 
 from ._spec_array_object import array
 from ._typing import Dtype
 
 def matmul(x1: array, x2: array, /) -> array: ...
-def matrix_transpose(x: array[Any, _DTypeT], /) -> array[Any, _DTypeT]: ...
+def matrix_transpose(
+    x: array[_AtLeast2DT, _DTypeT],
+    /,
+) -> array[_AtLeast2DT, _DTypeT]: ...
 def tensordot(
     x1: array,
     x2: array,
@@ -43,4 +48,20 @@ def tensordot(
 ) -> array: ...
 def vecdot(x1: array, x2: array, /, *, axis: int = ...) -> array: ...
 
+_AtLeast2DT = TypeVar(
+    "_AtLeast2DT",
+    tuple[int, int],
+    tuple[int, int, int],
+    tuple[int, int, int, int],
+    tuple[int, int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, Unpack[tuple[int, ...]]],
+    tuple[int, _Axis],
+    tuple[int, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
+)
+_Axis: TypeAlias = int | None
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)

@@ -27,16 +27,14 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 from collections.abc import Sequence
-from typing import Any, SupportsIndex, TypeVar, overload
+from typing import Any, SupportsIndex, TypeAlias, TypeVar, overload
 
 from typing_extensions import Unpack
 
 from ._spec_array_object import array
 from ._typing import Dtype
 
-def broadcast_arrays(
-    arrays: array[Any, _DTypeT],
-) -> list[array[Any, _DTypeT]]: ...
+def broadcast_arrays(*arrays: array) -> list[array]: ...
 
 @overload
 def broadcast_to(
@@ -57,7 +55,7 @@ def broadcast_to(
     shape: Sequence[SupportsIndex],
 ) -> array[tuple[int, ...], _DTypeT]: ...
 
-def concat(arrays: Sequence[array], /, *, axis: int | None = ...) -> array: ...
+def concat(arrays: Sequence[array], /, *, axis: _Axis = ...) -> array: ...
 def expand_dims(
     x: array[Any, _DTypeT],
     /,
@@ -65,11 +63,11 @@ def expand_dims(
     axis: int = ...,
 ) -> array[Any, _DTypeT]: ...
 def flip(
-    x: array[Any, _DTypeT],
+    x: array[_ShapeT, _DTypeT],
     /,
     *,
     axis: int | tuple[int, ...] | None = ...,
-) -> array[Any, _DTypeT]: ...
+) -> array[_ShapeT, _DTypeT]: ...
 def permute_dims(
     x: array[Any, _DTypeT],
     /,
@@ -115,6 +113,7 @@ def squeeze(
 ) -> array[Any, _DTypeT]: ...
 def stack(arrays: Sequence[array], /, *, axis: int = ...) -> array: ...
 
+_Axis: TypeAlias = int | None
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
 _RegularShapeT = TypeVar(
     "_RegularShapeT",
@@ -128,4 +127,24 @@ _RegularShapeT = TypeVar(
     tuple[int, int, Unpack[tuple[int, ...]]],
     tuple[int, Unpack[tuple[int, ...]]],
     tuple[int, ...],
+)
+_ShapeT = TypeVar(
+    "_ShapeT",
+    tuple[()],
+    tuple[int],
+    tuple[int, int],
+    tuple[int, int, int],
+    tuple[int, int, int, int],
+    tuple[int, int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, Unpack[tuple[int, ...]]],
+    tuple[int, Unpack[tuple[int, ...]]],
+    tuple[int, ...],
+    tuple[int, _Axis],
+    tuple[int, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, Unpack[tuple[_Axis, ...]]],
 )

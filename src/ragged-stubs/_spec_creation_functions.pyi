@@ -2556,8 +2556,19 @@ def ones_like(
     device: Device | None = ...,
 ) -> array[_ShapeT]: ...
 
-def tril(x: _AtLeast2DArrayT, /, *, k: int = ...) -> _AtLeast2DArrayT: ...
-def triu(x: _AtLeast2DArrayT, /, *, k: int = ...) -> _AtLeast2DArrayT: ...
+def tril(
+    x: array[Any, _DTypeT],
+    /,
+    *,
+    k: int = ...,
+) -> array[tuple[int, int] | tuple[int, int, int], _DTypeT]: ...
+
+def triu(
+    x: array[Any, _DTypeT],
+    /,
+    *,
+    k: int = ...,
+) -> array[tuple[int, int] | tuple[int, int, int], _DTypeT]: ...
 
 @overload
 def zeros(
@@ -3004,7 +3015,6 @@ def zeros_like(
     device: Device | None = ...,
 ) -> array[_ShapeT]: ...
 
-_AtLeast2DArrayT = TypeVar("_AtLeast2DArrayT", bound=array[onp.AtLeast2D])
 _Bool: TypeAlias = type[bool] | Literal[
     "?",
     "=?",
