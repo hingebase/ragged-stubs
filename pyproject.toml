@@ -60,3 +60,6 @@ preview = true
 
 [tool.ruff.lint]
 select = ["ALL"]
+
+[tool.uv.sources]
+ragged = { git = "https://github.com/scikit-hep/ragged", branch = "main" }
