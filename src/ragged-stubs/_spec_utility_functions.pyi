@@ -26,24 +26,82 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-from typing import Any
+from typing import Any, Literal, TypeAlias, TypeVar, overload
 
 import numpy as np
+from typing_extensions import Unpack
 
 from ._spec_array_object import array
 from ._typing import Dtype
 
+@overload
 def all(  # noqa: A001
     x: array,
     /,
     *,
     axis: int | tuple[int, ...] | None = ...,
-    keepdims: bool = ...,
+    keepdims: Literal[False] = ...,
 ) -> array[Any, Dtype[np.bool_]]: ...
+@overload
+def all(  # noqa: A001
+    x: array[_ShapeT],
+    /,
+    *,
+    axis: int | tuple[int, ...] | None = ...,
+    keepdims: Literal[True],
+) -> array[_ShapeT, Dtype[np.bool_]]: ...
+@overload
+def all(  # noqa: A001
+    x: array,
+    /,
+    *,
+    axis: int | tuple[int, ...] | None = ...,
+    keepdims: bool,
+) -> array[Any, Dtype[np.bool_]]: ...
+
+@overload
 def any(  # noqa: A001
     x: array,
     /,
     *,
     axis: int | tuple[int, ...] | None = ...,
-    keepdims: bool = ...,
+    keepdims: Literal[False] = ...,
 ) -> array[Any, Dtype[np.bool_]]: ...
+@overload
+def any(  # noqa: A001
+    x: array[_ShapeT],
+    /,
+    *,
+    axis: int | tuple[int, ...] | None = ...,
+    keepdims: Literal[True],
+) -> array[_ShapeT, Dtype[np.bool_]]: ...
+@overload
+def any(  # noqa: A001
+    x: array,
+    /,
+    *,
+    axis: int | tuple[int, ...] | None = ...,
+    keepdims: bool,
+) -> array[Any, Dtype[np.bool_]]: ...
+
+_Axis: TypeAlias = int | None
+_ShapeT = TypeVar(
+    "_ShapeT",
+    tuple[()],
+    tuple[int],
+    tuple[int, int],
+    tuple[int, int, int],
+    tuple[int, int, int, int],
+    tuple[int, int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, Unpack[tuple[int, ...]]],
+    tuple[int, Unpack[tuple[int, ...]]],
+    tuple[int, ...],
+    tuple[int, _Axis],
+    tuple[int, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, Unpack[tuple[_Axis, ...]]],
+)
