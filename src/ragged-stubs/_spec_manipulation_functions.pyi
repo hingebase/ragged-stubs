@@ -27,7 +27,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 from collections.abc import Sequence
-from typing import Any, SupportsIndex, TypeAlias, TypeVar, overload
+from typing import Any, Literal, SupportsIndex, TypeAlias, TypeVar, overload
 
 from typing_extensions import Unpack
 
@@ -35,25 +35,11 @@ from ._spec_array_object import array
 from ._typing import Dtype
 
 def broadcast_arrays(*arrays: array) -> list[array]: ...
-
-@overload
 def broadcast_to(
-    x: array[Any, _DTypeT],
-    /,
-    shape: _RegularShapeT,
-) -> array[_RegularShapeT, _DTypeT]: ...
-@overload
-def broadcast_to(
-    x: array[Any, _DTypeT],
-    /,
-    shape: SupportsIndex,
-) -> array[tuple[int], _DTypeT]: ...
-@overload
-def broadcast_to(
-    x: array[Any, _DTypeT],
+    x: array[_AtLeast1D, _DTypeT],
     /,
     shape: Sequence[SupportsIndex],
-) -> array[tuple[int, ...], _DTypeT]: ...
+) -> array[Any, _DTypeT]: ...
 
 def concat(arrays: Sequence[array], /, *, axis: _Axis = ...) -> array: ...
 def expand_dims(
@@ -69,10 +55,10 @@ def flip(
     axis: int | tuple[int, ...] | None = ...,
 ) -> array[_ShapeT, _DTypeT]: ...
 def permute_dims(
-    x: array[Any, _DTypeT],
+    x: array[_ShapeT, _DTypeT],
     /,
     axes: tuple[int, ...],
-) -> array[Any, _DTypeT]: ...
+) -> array[_ShapeT, _DTypeT]: ...
 
 @overload
 def reshape(
@@ -99,22 +85,82 @@ def reshape(
     copy: bool | None = ...,
 ) -> array[tuple[int, ...], _DTypeT]: ...
 
+@overload
 def roll(
-    x: array[Any, _DTypeT],
+    x: array[_AtLeast1DT, _DTypeT],
     /,
-    shift: int | tuple[int, ...],
+    shift: _RegularShapeT,
     *,
-    axis: int | tuple[int, ...] | None = ...,
-) -> array[Any, _DTypeT]: ...
+    axis: _RegularShapeT,
+) -> array[_AtLeast1DT, _DTypeT]: ...
+@overload
+def roll(
+    x: array[_AtLeast1DT, _DTypeT],
+    /,
+    shift: int,
+    *,
+    axis: int | tuple[int, ...],
+) -> array[_AtLeast1DT, _DTypeT]: ...
+@overload
+def roll(
+    x: array[_AtLeast1DT, _DTypeT],
+    /,
+    shift: tuple[int],
+    *,
+    axis: int,
+) -> array[_AtLeast1DT, _DTypeT]: ...
+@overload
+def roll(
+    x: array[_2DT, _DTypeT],
+    /,
+    shift: int,
+    *,
+    axis: None = ...,
+) -> array[_2DT, _DTypeT]: ...
+@overload
+def roll(
+    x: array[tuple[_IntT], _DTypeT],
+    /,
+    shift: int,
+    *,
+    axis: None = ...,
+) -> array[tuple[Literal[1], _IntT], _DTypeT]: ...
+
 def squeeze(
     x: array[Any, _DTypeT],
     /,
     axis: int | tuple[int, ...],
 ) -> array[Any, _DTypeT]: ...
-def stack(arrays: Sequence[array], /, *, axis: int = ...) -> array: ...
+def stack(
+    arrays: Sequence[array[Any, _DTypeT]],
+    /,
+    *,
+    axis: int = ...,
+) -> array[Any, _DTypeT]: ...
 
+_2DT = TypeVar("_2DT", bound=tuple[int, _Axis])
+_AtLeast1D: TypeAlias = tuple[int, Unpack[tuple[int | None, ...]]]
+_AtLeast1DT = TypeVar(
+    "_AtLeast1DT",
+    tuple[int],
+    tuple[int, int],
+    tuple[int, int, int],
+    tuple[int, int, int, int],
+    tuple[int, int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, Unpack[tuple[int, ...]]],
+    tuple[int, Unpack[tuple[int, ...]]],
+    tuple[int, _Axis],
+    tuple[int, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, Unpack[tuple[_Axis, ...]]],
+)
 _Axis: TypeAlias = int | None
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
+_IntT = TypeVar("_IntT", bound=int)
 _RegularShapeT = TypeVar(
     "_RegularShapeT",
     tuple[()],
