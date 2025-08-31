@@ -41,7 +41,28 @@ def broadcast_to(
     shape: Sequence[SupportsIndex],
 ) -> array[Any, _DTypeT]: ...
 
-def concat(arrays: Sequence[array], /, *, axis: _Axis = ...) -> array: ...
+@overload
+def concat(
+    arrays: Sequence[array[_IrregularShapeT]],
+    /,
+    *,
+    axis: int = ...,
+) -> array[_IrregularShapeT]: ...
+@overload
+def concat(
+    arrays: Sequence[array[_AtLeast1D]],
+    /,
+    *,
+    axis: None,
+) -> array[tuple[int]]: ...
+@overload
+def concat(
+    arrays: Sequence[array[_AtLeast1D]],
+    /,
+    *,
+    axis: _Axis,
+) -> array[_AtLeast1D]: ...
+
 def expand_dims(
     x: array[Any, _DTypeT],
     /,
@@ -161,6 +182,17 @@ _AtLeast1DT = TypeVar(
 _Axis: TypeAlias = int | None
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
 _IntT = TypeVar("_IntT", bound=int)
+_IrregularShapeT = TypeVar(
+    "_IrregularShapeT",
+    tuple[int],
+    tuple[int, _Axis],
+    tuple[int, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, Unpack[tuple[_Axis, ...]]],
+)
 _RegularShapeT = TypeVar(
     "_RegularShapeT",
     tuple[()],
