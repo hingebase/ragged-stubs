@@ -1195,6 +1195,7 @@ class array(  # noqa: N801
     __rlshift__ = __lshift__
     __rrshift__ = __rshift__
 
+_Axis: TypeAlias = int | None
 _2DT = TypeVar("_2DT", tuple[int, int], tuple[int, _Axis])
 _AtLeast2DT = TypeVar(
     "_AtLeast2DT",
@@ -1211,7 +1212,6 @@ _AtLeast2DT = TypeVar(
     tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
     tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
 )
-_Axis: TypeAlias = int | None
 _BoolOrIntDType: TypeAlias = Dtype[np.bool_ | np.integer[Any]]
 _BoolOrIntDTypeT = TypeVar("_BoolOrIntDTypeT", bound=_BoolOrIntDType)
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
@@ -1228,8 +1228,8 @@ _NumericDTypeT = TypeVar("_NumericDTypeT", bound=_NumericDType)
 _NumPyDType: TypeAlias = np.dtype[
     np.bool_ | np.number[Any] | np.datetime64 | np.timedelta64
 ]
-_RealDType: TypeAlias = Dtype[np.bool_ | _RealNumber]
 _RealNumber: TypeAlias = np.integer[Any] | np.floating[Any]
+_RealDType: TypeAlias = Dtype[np.bool_ | _RealNumber]
 _RegularShapeT = TypeVar("_RegularShapeT", bound=tuple[int, ...])
 _SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
 _ShapeT = TypeVar("_ShapeT", bound=Shape)

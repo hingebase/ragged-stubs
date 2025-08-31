@@ -30,6 +30,7 @@ from typing import Any, TypeAlias, TypeVar, overload
 
 import numpy as np
 import numpy.typing as npt
+from typing_extensions import TypeAliasType
 
 from ._spec_array_object import array
 from ._typing import Dtype, Shape
@@ -337,21 +338,25 @@ def trunc(x: _RealArrayT, /) -> _RealArrayT: ...
 
 _ArrayT = TypeVar("_ArrayT", bound=array)
 _BitT = TypeVar("_BitT", bound=npt.NBitBase)
+_SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
+_NDArray = TypeAliasType(
+    "_NDArray",
+    array[Any, Dtype[_SCT]],
+    type_params=(_SCT,),
+)
 _BoolArray: TypeAlias = _NDArray[np.bool_]
 _BoolOrIntArray: TypeAlias = _NDArray[np.bool_ | np.integer[Any]]
 _BoolOrIntArrayT = TypeVar("_BoolOrIntArrayT", bound=_BoolOrIntArray)
+_ShapeT = TypeVar("_ShapeT", bound=Shape)
 _Float16Array: TypeAlias = array[_ShapeT, Dtype[np.float16]]
 _Float32Array: TypeAlias = array[_ShapeT, Dtype[np.float32]]
 _Float64Array: TypeAlias = array[_ShapeT, Dtype[np.float64]]
 _InexactArray: TypeAlias = _NDArray[np.inexact[Any]]
 _InexactArrayT = TypeVar("_InexactArrayT", bound=_InexactArray)
-_NDArray: TypeAlias = array[Any, Dtype[_SCT]]
 _NumericArray: TypeAlias = _NDArray[np.number[Any]]
 _NumericArrayT = TypeVar("_NumericArrayT", bound=_NumericArray)
 _RealArray: TypeAlias = _NDArray[np.bool_ | np.integer[Any] | np.floating[Any]]
 _RealArrayT = TypeVar("_RealArrayT", bound=_RealArray)
-_SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
-_ShapeT = TypeVar("_ShapeT", bound=Shape)
 _ToFloat16Array: TypeAlias = array[
     _ShapeT,
     Dtype[np.int8 | np.uint8 | np.bool_],

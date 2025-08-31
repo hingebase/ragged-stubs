@@ -159,6 +159,7 @@ def stack(
     axis: int = ...,
 ) -> array[Any, _DTypeT]: ...
 
+_Axis: TypeAlias = int | None
 _2DT = TypeVar("_2DT", bound=tuple[int, _Axis])
 _AtLeast1D: TypeAlias = tuple[int, Unpack[tuple[int | None, ...]]]
 _AtLeast1DT = TypeVar(
@@ -179,7 +180,6 @@ _AtLeast1DT = TypeVar(
     tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
     tuple[int, Unpack[tuple[_Axis, ...]]],
 )
-_Axis: TypeAlias = int | None
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
 _IntT = TypeVar("_IntT", bound=int)
 _IrregularShapeT = TypeVar(

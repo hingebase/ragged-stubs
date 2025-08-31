@@ -61,5 +61,10 @@ preview = true
 [tool.ruff.lint]
 select = ["ALL"]
 
+[tool.ty.rules]
+division-by-zero = "warn"
+possibly-unresolved-reference = "warn"
+unused-ignore-comment = "warn"
+
 [tool.uv.sources]
 ragged = { git = "https://github.com/scikit-hep/ragged", branch = "main" }

@@ -49,6 +49,7 @@ def tensordot(
 def vecdot(x1: array, x2: array, /, *, axis: int = ...) -> array: ...
 
 _AtLeast1D: TypeAlias = tuple[int, Unpack[tuple[int | None, ...]]]
+_Axis: TypeAlias = int | None
 _AtLeast2DT = TypeVar(
     "_AtLeast2DT",
     tuple[int, int],
@@ -64,5 +65,4 @@ _AtLeast2DT = TypeVar(
     tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
     tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
 )
-_Axis: TypeAlias = int | None
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)

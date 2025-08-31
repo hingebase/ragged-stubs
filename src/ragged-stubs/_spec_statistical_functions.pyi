@@ -295,6 +295,7 @@ def var(
 ) -> array[Any, _DTypeT]: ...
 
 _AtLeast1D: TypeAlias = tuple[int, Unpack[tuple[int | None, ...]]]
+_Axis: TypeAlias = int | None
 _AtLeast1DT = TypeVar(
     "_AtLeast1DT",
     tuple[int],
@@ -313,7 +314,6 @@ _AtLeast1DT = TypeVar(
     tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
     tuple[int, Unpack[tuple[_Axis, ...]]],
 )
-_Axis: TypeAlias = int | None
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
 _InexactDTypeT = TypeVar("_InexactDTypeT", bound=Dtype[np.inexact[Any]])
 _ShapeT = TypeVar(
