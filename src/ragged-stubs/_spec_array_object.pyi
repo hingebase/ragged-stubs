@@ -706,7 +706,7 @@ class array(  # noqa: N801
     def __dlpack_device__(self) -> tuple[enum.Enum, int]: ...
 
     @overload
-    def __eq__(
+    def __eq__(  # pyrefly: ignore[bad-override]
         self,
         other: array | np.ndarray[Any, Dtype],
         /,
@@ -857,7 +857,7 @@ class array(  # noqa: N801
     def __mul__(self, other: object) -> array: ...
 
     @overload
-    def __ne__(
+    def __ne__(  # pyrefly: ignore[bad-override]
         self,
         other: array | np.ndarray[Any, Dtype],
         /,
