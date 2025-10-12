@@ -190,10 +190,6 @@ def finfo(
 ) -> finfo_object[_FloatingT_co]: ...
 @overload
 def finfo(
-    type: onp.ToDType[np.complexfloating[_BitT, _BitT]],
-) -> finfo_object[np.floating[_BitT]]: ...
-@overload
-def finfo(
     type: onp.AnyFloat32DType | onp.AnyComplex64DType,
 ) -> finfo_object[np.float32]: ...
 @overload
@@ -234,7 +230,6 @@ def isdtype(
 
 def result_type(*arrays_and_dtypes: object) -> np.dtype[Any]: ...
 
-_BitT = TypeVar("_BitT", bound=npt.NBitBase)
 _FloatingT_co = TypeVar(
     "_FloatingT_co",
     bound=np.floating[Any],

@@ -29,7 +29,6 @@
 from typing import Any, TypeAlias, TypeVar, overload
 
 import numpy as np
-import numpy.typing as npt
 from typing_extensions import TypeAliasType
 
 from ._spec_array_object import array
@@ -175,9 +174,9 @@ def greater_equal(x1: array, x2: array, /) -> _BoolArray: ...
 
 @overload
 def imag(
-    x: array[_ShapeT, Dtype[np.complexfloating[_BitT, _BitT]]],
+    x: array[_ShapeT, Dtype[np.complex128]],
     /,
-) -> array[_ShapeT, Dtype[np.floating[_BitT]]]: ...
+) -> _Float64Array[_ShapeT]: ...
 @overload
 def imag(
     x: array[_ShapeT, Dtype[np.int32 | np.uint32 | np.float32]],
@@ -185,7 +184,7 @@ def imag(
 ) -> _Float16Array[_ShapeT]: ...
 @overload
 def imag(
-    x: array[_ShapeT, Dtype[np.int64 | np.uint64 | np.float64]],
+    x: array[_ShapeT, Dtype[np.int64 | np.uint64 | np.float64 | np.complex64]],
     /,
 ) -> _Float32Array[_ShapeT]: ...
 
@@ -245,9 +244,9 @@ def pow(x1: array, x2: array, /) -> _NumericArray: ...  # noqa: A001
 
 @overload
 def real(
-    x: array[_ShapeT, Dtype[np.complexfloating[_BitT, _BitT]]],
+    x: array[_ShapeT, Dtype[np.complex128]],
     /,
-) -> array[_ShapeT, Dtype[np.floating[_BitT]]]: ...
+) -> _Float64Array[_ShapeT]: ...
 @overload
 def real(
     x: array[_ShapeT, Dtype[np.int32 | np.uint32 | np.float32]],
@@ -255,7 +254,7 @@ def real(
 ) -> _Float16Array[_ShapeT]: ...
 @overload
 def real(
-    x: array[_ShapeT, Dtype[np.int64 | np.uint64 | np.float64]],
+    x: array[_ShapeT, Dtype[np.int64 | np.uint64 | np.float64 | np.complex64]],
     /,
 ) -> _Float32Array[_ShapeT]: ...
 
@@ -337,7 +336,6 @@ def tanh(x: _ToFloat64Array[_ShapeT], /) -> _Float64Array[_ShapeT]: ...
 def trunc(x: _RealArrayT, /) -> _RealArrayT: ...
 
 _ArrayT = TypeVar("_ArrayT", bound=array)
-_BitT = TypeVar("_BitT", bound=npt.NBitBase)
 _SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
 _NDArray = TypeAliasType(
     "_NDArray",
