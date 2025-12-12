@@ -718,7 +718,7 @@ class array(  # noqa: N801
         /,
     ) -> array[_ShapeT, Dtype[np.bool_]]: ...
     @overload
-    def __eq__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def __eq__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
 
     def __float__(self) -> float: ...
 
@@ -869,7 +869,7 @@ class array(  # noqa: N801
         /,
     ) -> array[_ShapeT, Dtype[np.bool_]]: ...
     @overload
-    def __ne__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def __ne__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
 
     def __neg__(
         self: array[_ShapeT, _NumericDTypeT],
