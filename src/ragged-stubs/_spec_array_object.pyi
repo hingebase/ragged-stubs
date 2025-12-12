@@ -1186,14 +1186,128 @@ class array(  # noqa: N801
     __ror__ = __or__
     __rxor__ = __xor__
 
-    __rsub__ = __sub__
-    __rtruediv__ = __truediv__
-    __rfloordiv__ = __floordiv__
-    __rpow__ = __pow__
-    __rmod__ = __mod__
-    __rmatmul__ = __matmul__
-    __rlshift__ = __lshift__
-    __rrshift__ = __rshift__
+    @overload
+    def __rsub__(
+        self: array[Any, _NumericDType],
+        other: array | np.ndarray[Any, Dtype],
+    ) -> array[Any, _NumericDType]: ...
+    @overload
+    def __rsub__(
+        self,
+        other: array[Any, _NumericDType] | np.ndarray[Any, _NumericDType],
+    ) -> array[Any, _NumericDType]: ...
+    @overload
+    def __rsub__(
+        self: array[_ShapeT, _NumericDType],
+        other: complex | np.number[Any],
+    ) -> array[_ShapeT, _NumericDType]: ...
+    @overload
+    def __rsub__(
+        self: array[_ShapeT],
+        other: op.JustInt | op.JustFloat | op.JustComplex | np.number[Any],
+    ) -> array[_ShapeT, _NumericDType]: ...
+    @overload
+    def __rsub__(self, other: object) -> array[Any, _NumericDType]: ...
+
+    @overload
+    def __rtruediv__(
+        self,
+        other: array | np.ndarray[Any, Dtype],
+        /,
+    ) -> array[Any, _InexactDType]: ...
+    @overload
+    def __rtruediv__(
+        self: array[_ShapeT],
+        other: complex | np.number[Any],
+        /,
+    ) -> array[_ShapeT, _InexactDType]: ...
+    @overload
+    def __rtruediv__(self, other: object, /) -> array[Any, _InexactDType]: ...
+
+    @overload
+    def __rfloordiv__(
+        self: array[Any, _RealDType],
+        other: array[Any, _RealDType] | np.ndarray[Any, _RealDType],
+        /,
+    ) -> array[Any, Dtype[_RealNumber]]: ...
+    @overload
+    def __rfloordiv__(
+        self: array[_ShapeT, _RealDType],
+        other: float | _RealNumber,
+        /,
+    ) -> array[_ShapeT, Dtype[_RealNumber]]: ...
+    @overload
+    def __rfloordiv__(
+        self: array[Any, _RealDType],
+        other: object,
+        /,
+    ) -> array[Any, Dtype[_RealNumber]]: ...
+
+    @overload
+    def __rpow__(
+        self,
+        other: array | np.ndarray[Any, Dtype],
+    ) -> array[Any, _NumericDType]: ...
+    @overload
+    def __rpow__(
+        self: array[_ShapeT],
+        other: complex | np.number[Any],
+    ) -> array[_ShapeT, _NumericDType]: ...
+    @overload
+    def __rpow__(self, other: object) -> array[Any, _NumericDType]: ...
+
+    @overload
+    def __rmod__(
+        self: array[Any, _RealDType],
+        other: array[Any, _RealDType] | np.ndarray[Any, _RealDType],
+        /,
+    ) -> array[Any, Dtype[_RealNumber]]: ...
+    @overload
+    def __rmod__(
+        self: array[_ShapeT, _RealDType],
+        other: float | _RealNumber,
+        /,
+    ) -> array[_ShapeT, Dtype[_RealNumber]]: ...
+    @overload
+    def __rmod__(
+        self: array[Any, _RealDType],
+        other: object,
+        /,
+    ) -> array[Any, Dtype[_RealNumber]]: ...
+
+    @overload
+    def __rlshift__(
+        self: array[Any, _BoolOrIntDType],
+        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
+    ) -> array[Any, Dtype[np.integer[Any]]]: ...
+    @overload
+    def __rlshift__(
+        self: array[_ShapeT, _BoolOrIntDType],
+        other: int | np.integer[Any],
+    ) -> array[_ShapeT, Dtype[np.integer[Any]]]: ...
+    @overload
+    def __rlshift__(
+        self: array[Any, _BoolOrIntDType],
+        other: object,
+    ) -> array[Any, Dtype[np.integer[Any]]]: ...
+
+    @overload
+    def __rrshift__(
+        self: array[Any, _BoolOrIntDType],
+        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
+    ) -> array[Any, Dtype[np.integer[Any]]]: ...
+    @overload
+    def __rrshift__(
+        self: array[_ShapeT, _BoolOrIntDType],
+        other: int | np.integer[Any],
+    ) -> array[_ShapeT, Dtype[np.integer[Any]]]: ...
+    @overload
+    def __rrshift__(
+        self: array[Any, _BoolOrIntDType],
+        other: object,
+    ) -> array[Any, Dtype[np.integer[Any]]]: ...
+
+    def __rmatmul__(self, other: array) -> array: ...
 
 _Axis: TypeAlias = int | None
 _2DT = TypeVar("_2DT", tuple[int, int], tuple[int, _Axis])
