@@ -52,6 +52,7 @@ Homepage = "https://github.com/hingebase/ragged-stubs"
 "Issue Tracker" = "https://github.com/hingebase/ragged-stubs/issues"
 
 [tool.basedpyright]
+reportUnnecessaryTypeIgnoreComment = "warning"
 strict = ["."]
 typeCheckingMode = "off"
 
