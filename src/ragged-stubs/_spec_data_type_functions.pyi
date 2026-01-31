@@ -27,7 +27,8 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 import dataclasses
-from typing import Any, Generic, Literal, TypeVar, overload
+import sys
+from typing import Any, Generic, Literal, TypeAlias, TypeVar, overload
 
 import numpy as np
 import numpy.typing as npt
@@ -230,11 +231,14 @@ def isdtype(
 
 def result_type(*arrays_and_dtypes: object) -> np.dtype[Any]: ...
 
-_FloatingT_co = TypeVar(
-    "_FloatingT_co",
-    bound=np.floating[Any],
-    covariant=True,
-)
-_IntegerT_co = TypeVar("_IntegerT_co", bound=np.integer[Any], covariant=True)
+if sys.version_info >= (3, 14):
+    _Floating: TypeAlias = np.floating
+    _Integer: TypeAlias = np.integer
+else:
+    _Floating: TypeAlias = np.floating[Any]
+    _Integer: TypeAlias = np.integer[Any]
+
+_FloatingT_co = TypeVar("_FloatingT_co", bound=_Floating, covariant=True)
+_IntegerT_co = TypeVar("_IntegerT_co", bound=_Integer, covariant=True)
 _SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
 _ShapeT = TypeVar("_ShapeT", bound=Shape)

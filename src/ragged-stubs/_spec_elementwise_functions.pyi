@@ -26,6 +26,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+import sys
 from typing import Any, TypeAlias, TypeVar, overload
 
 import numpy as np
@@ -83,7 +84,7 @@ def atan(x: _ToFloat32Array[_ShapeT], /) -> _Float32Array[_ShapeT]: ...
 @overload
 def atan(x: _ToFloat64Array[_ShapeT], /) -> _Float64Array[_ShapeT]: ...
 
-def atan2(x1: _RealArray, x2: _RealArray, /) -> _NDArray[np.floating[Any]]: ...
+def atan2(x1: _RealArray, x2: _RealArray, /) -> _NDArray[_Floating]: ...
 
 @overload
 def atanh(x: _InexactArrayT, /) -> _InexactArrayT: ...
@@ -104,7 +105,7 @@ def bitwise_left_shift(
     x1: _BoolOrIntArray,
     x2: _BoolOrIntArray,
     /,
-) -> _NDArray[np.integer[Any]]: ...
+) -> _NDArray[_Integer]: ...
 def bitwise_or(
     x1: _BoolOrIntArray,
     x2: _BoolOrIntArray,
@@ -114,7 +115,7 @@ def bitwise_right_shift(
     x1: _BoolOrIntArray,
     x2: _BoolOrIntArray,
     /,
-) -> _NDArray[np.integer[Any]]: ...
+) -> _NDArray[_Integer]: ...
 def bitwise_xor(
     x1: _BoolOrIntArray,
     x2: _BoolOrIntArray,
@@ -168,7 +169,7 @@ def floor_divide(
     x1: _RealArray,
     x2: _RealArray,
     /,
-) -> _NDArray[np.integer[Any] | np.floating[Any]]: ...
+) -> _NDArray[_Integer | _Floating]: ...
 def greater(x1: array, x2: array, /) -> _BoolArray: ...
 def greater_equal(x1: array, x2: array, /) -> _BoolArray: ...
 
@@ -230,7 +231,7 @@ def log10(x: _ToFloat32Array[_ShapeT], /) -> _Float32Array[_ShapeT]: ...
 @overload
 def log10(x: _ToFloat64Array[_ShapeT], /) -> _Float64Array[_ShapeT]: ...
 
-def logaddexp(x1: _RealArray, x2: _RealArray, /) -> _NDArray[np.floating[Any]]:
+def logaddexp(x1: _RealArray, x2: _RealArray, /) -> _NDArray[_Floating]:
     ...
 def logical_and(x1: array, x2: array, /) -> _BoolArray: ...
 def logical_not(x: array[_ShapeT]) -> array[_ShapeT, Dtype[np.bool_]]: ...
@@ -262,7 +263,7 @@ def remainder(
     x1: _RealArray,
     x2: _RealArray,
     /,
-) -> _NDArray[np.integer[Any] | np.floating[Any]]: ...
+) -> _NDArray[_Integer | _Floating]: ...
 
 @overload
 def round(x: _InexactArrayT, /) -> _InexactArrayT: ...  # noqa: A001
@@ -335,6 +336,13 @@ def tanh(x: _ToFloat64Array[_ShapeT], /) -> _Float64Array[_ShapeT]: ...
 
 def trunc(x: _RealArrayT, /) -> _RealArrayT: ...
 
+if sys.version_info >= (3, 14):
+    _Floating: TypeAlias = np.floating
+    _Integer: TypeAlias = np.integer
+else:
+    _Floating: TypeAlias = np.floating[Any]
+    _Integer: TypeAlias = np.integer[Any]
+
 _ArrayT = TypeVar("_ArrayT", bound=array)
 _SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
 _NDArray = TypeAliasType(
@@ -343,7 +351,7 @@ _NDArray = TypeAliasType(
     type_params=(_SCT,),
 )
 _BoolArray: TypeAlias = _NDArray[np.bool_]
-_BoolOrIntArray: TypeAlias = _NDArray[np.bool_ | np.integer[Any]]
+_BoolOrIntArray: TypeAlias = _NDArray[np.bool_ | _Integer]
 _BoolOrIntArrayT = TypeVar("_BoolOrIntArrayT", bound=_BoolOrIntArray)
 _ShapeT = TypeVar("_ShapeT", bound=Shape)
 _Float16Array: TypeAlias = array[_ShapeT, Dtype[np.float16]]
@@ -353,7 +361,7 @@ _InexactArray: TypeAlias = _NDArray[np.inexact[Any]]
 _InexactArrayT = TypeVar("_InexactArrayT", bound=_InexactArray)
 _NumericArray: TypeAlias = _NDArray[np.number[Any]]
 _NumericArrayT = TypeVar("_NumericArrayT", bound=_NumericArray)
-_RealArray: TypeAlias = _NDArray[np.bool_ | np.integer[Any] | np.floating[Any]]
+_RealArray: TypeAlias = _NDArray[np.bool_ | _Integer | _Floating]
 _RealArrayT = TypeVar("_RealArrayT", bound=_RealArray)
 _ToFloat16Array: TypeAlias = array[
     _ShapeT,

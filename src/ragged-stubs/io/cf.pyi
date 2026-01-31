@@ -33,7 +33,8 @@ __all__ = [
     "to_cf_indexed",
 ]
 
-from typing import Any, TypeVar
+import sys
+from typing import Any, TypeAlias, TypeVar
 
 import numpy as np
 from ragged._spec_array_object import array
@@ -44,14 +45,19 @@ def to_cf_contiguous(
 ) -> tuple[array[tuple[int], _DTypeT], array[tuple[int], Dtype[np.int64]]]: ...
 def from_cf_contiguous(
     content: array[tuple[int], _DTypeT],
-    counts: array[tuple[int], Dtype[np.integer[Any]]],
+    counts: array[tuple[int], Dtype[_Integer]],
 ) -> array[tuple[int, None], _DTypeT]: ...
 def to_cf_indexed(
     x: array[tuple[int, int | None], _DTypeT],
 ) -> tuple[array[tuple[int], _DTypeT], array[tuple[int], Dtype[np.int64]]]: ...
 def from_cf_indexed(
     content: array[tuple[int], _DTypeT],
-    counts: array[tuple[int], Dtype[np.integer[Any]]],
+    counts: array[tuple[int], Dtype[_Integer]],
 ) -> array[tuple[int, None], _DTypeT]: ...
 
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
+
+if sys.version_info >= (3, 14):
+    _Integer: TypeAlias = np.integer
+else:
+    _Integer: TypeAlias = np.integer[Any]
