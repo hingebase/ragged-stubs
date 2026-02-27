@@ -26,9 +26,12 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-from typing import TypeVar, overload
+from typing import Literal, TypeVar, overload
 
 import numpy as np
+from typing_extensions import Unpack
+
+from ._spec_array_object import array
 
 @overload
 def regularise_to_float(
@@ -44,6 +47,43 @@ def regularise_to_float(
 ) -> np.dtype[_CanFloat64 | np.float64]: ...
 @overload
 def regularise_to_float(t: np.dtype[_SCT]) -> np.dtype[_SCT]: ...
+
+@overload
+def is_effectively_regular(
+    x: array[tuple[int, None, Unpack[tuple[int | None, ...]]]],
+) -> bool: ...
+@overload
+def is_effectively_regular(x: array[tuple[()]]) -> Literal[False]: ...
+@overload
+def is_effectively_regular(x: array[tuple[int]]) -> Literal[False]: ...
+@overload
+def is_effectively_regular(
+    x: array[tuple[int, int, Unpack[tuple[int | None, ...]]]],
+) -> Literal[True]: ...
+@overload
+def is_effectively_regular(x: array[tuple[int, ...]]) -> bool: ...
+@overload
+def is_effectively_regular(
+    x: array[tuple[int, Unpack[tuple[int | None, ...]]]],
+) -> bool: ...
+
+@overload
+def is_regular_or_effectively_regular(
+    x: array[tuple[int, None, Unpack[tuple[int | None, ...]]]],
+) -> bool: ...
+@overload
+def is_regular_or_effectively_regular(
+    x: array[tuple[()]],
+) -> Literal[False]: ...
+@overload
+def is_regular_or_effectively_regular(
+    x: array[tuple[int]],
+) -> Literal[False]: ...
+@overload
+def is_regular_or_effectively_regular(
+    x: array[tuple[int, int, Unpack[tuple[int | None, ...]]]],
+) -> Literal[True]: ...
+def is_regular_or_effectively_regular(x: object) -> bool: ...
 
 _CanFloat16 = TypeVar("_CanFloat16", np.int8, np.uint8, np.bool_)
 _CanFloat32 = TypeVar("_CanFloat32", np.int16, np.uint16)
