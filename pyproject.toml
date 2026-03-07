@@ -63,6 +63,9 @@ preview = true
 [tool.ruff.lint]
 select = ["ALL"]
 
+[tool.tombi.lint.rules]
+tables-out-of-order = "off"
+
 [tool.ty.rules]
 division-by-zero = "warn"
 possibly-unresolved-reference = "warn"
