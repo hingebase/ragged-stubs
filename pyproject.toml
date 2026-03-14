@@ -68,8 +68,10 @@ tables-out-of-order = "off"
 
 [tool.ty.rules]
 division-by-zero = "warn"
+possibly-missing-attribute = "warn"
+possibly-missing-import = "warn"
 possibly-unresolved-reference = "warn"
-unused-ignore-comment = "warn"
+unsupported-dynamic-base = "warn"
 
 [tool.uv.sources]
 ragged = { git = "https://github.com/scikit-hep/ragged", branch = "main" }
