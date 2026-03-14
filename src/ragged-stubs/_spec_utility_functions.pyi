@@ -51,13 +51,7 @@ def all(  # noqa: A001
     keepdims: Literal[True],
 ) -> array[_ShapeT, Dtype[np.bool_]]: ...
 @overload
-def all(  # noqa: A001
-    x: array,
-    /,
-    *,
-    axis: int | tuple[int, ...] | None = ...,
-    keepdims: bool,
-) -> array[Any, Dtype[np.bool_]]: ...
+def all(x: array, /, *, axis: int | tuple[int, ...] | None = ..., keepdims: bool) -> array[Any, Dtype[np.bool_]]: ...  # noqa: A001
 
 @overload
 def any(  # noqa: A001
@@ -76,13 +70,7 @@ def any(  # noqa: A001
     keepdims: Literal[True],
 ) -> array[_ShapeT, Dtype[np.bool_]]: ...
 @overload
-def any(  # noqa: A001
-    x: array,
-    /,
-    *,
-    axis: int | tuple[int, ...] | None = ...,
-    keepdims: bool,
-) -> array[Any, Dtype[np.bool_]]: ...
+def any(x: array, /, *, axis: int | tuple[int, ...] | None = ..., keepdims: bool) -> array[Any, Dtype[np.bool_]]: ...  # noqa: A001
 
 _Axis: TypeAlias = int | None
 _ShapeT = TypeVar(

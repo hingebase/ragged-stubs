@@ -31,12 +31,6 @@ from typing import Any, TypeVar
 from ._spec_array_object import array
 from ._typing import Dtype
 
-def take(
-    x: array[Any, _DTypeT],
-    indices: object,
-    /,
-    *,
-    axis: int | None = ...,
-) -> array[Any, _DTypeT]: ...
+def take(x: array[Any, _DTypeT], indices: object, /, *, axis: int | None = ...) -> array[Any, _DTypeT]: ...
 
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)

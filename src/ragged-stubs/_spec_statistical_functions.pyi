@@ -127,10 +127,7 @@ def prod(
     axis: int | tuple[int, ...] | None = ...,
     dtype: npt.DTypeLike = ...,
     keepdims: Literal[True],
-) -> array[
-    _ShapeT,
-    Dtype[np.int64 | np.uint64 | np.float64 | np.complex128],
-]: ...
+) -> array[_ShapeT, Dtype[np.int64 | np.uint64 | np.float64 | np.complex128]]: ...
 @overload
 def prod(
     x: array,
@@ -255,10 +252,7 @@ def sum(  # noqa: A001
     axis: int | tuple[int, ...] | None = ...,
     dtype: npt.DTypeLike = ...,
     keepdims: Literal[True],
-) -> array[
-    _ShapeT,
-    Dtype[np.int64 | np.uint64 | np.float64 | np.complex128],
-]: ...
+) -> array[_ShapeT, Dtype[np.int64 | np.uint64 | np.float64 | np.complex128]]: ...
 @overload
 def sum(  # noqa: A001
     x: array,

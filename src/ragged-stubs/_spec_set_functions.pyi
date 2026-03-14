@@ -46,16 +46,13 @@ class unique_counts_result(NamedTuple, Generic[_DTypeT_co]):  # noqa: N801
     values: array[tuple[int], _DTypeT_co]
     counts: array[tuple[int], Dtype[np.int64]]
 
-def unique_counts(x: array[Any, _DTypeT], /) -> unique_counts_result[_DTypeT]:
-    ...
+def unique_counts(x: array[Any, _DTypeT], /) -> unique_counts_result[_DTypeT]: ...
+
 class unique_inverse_result(NamedTuple, Generic[_DTypeT_co]):  # noqa: N801
     values: array[tuple[int], _DTypeT_co]
     inverse_indices: array[tuple[int], Dtype[np.int64]]
 
-def unique_inverse(
-    x: array[Any, _DTypeT],
-    /,
-) -> unique_inverse_result[_DTypeT]: ...
+def unique_inverse(x: array[Any, _DTypeT], /) -> unique_inverse_result[_DTypeT]: ...
 def unique_values(x: array[Any, _DTypeT], /) -> array[tuple[int], _DTypeT]: ...
 
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)

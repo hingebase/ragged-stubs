@@ -34,11 +34,7 @@ from optype.dlpack import CanDLPackCompat, CanDLPackDevice
 from optype.numpy import SequenceND
 from typing_extensions import Buffer, CapsuleType, TypeVar, Unpack
 
-_SCT = TypeVar(
-    "_SCT",
-    bound=np.bool_ | np.number[Any],
-    default=np.bool_ | np.number[Any],
-)
+_SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any], default=np.bool_ | np.number[Any])
 
 Device: TypeAlias = Literal["cpu", "cuda"]
 Dtype: TypeAlias = np.dtype[_SCT]

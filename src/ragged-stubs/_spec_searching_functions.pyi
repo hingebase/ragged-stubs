@@ -35,54 +35,18 @@ from ._spec_array_object import array
 from ._typing import Dtype
 
 @overload
-def argmax(
-    x: array,
-    /,
-    *,
-    axis: int | None = ...,
-    keepdims: Literal[False] = ...,
-) -> array[Any, Dtype[np.int64]]: ...
+def argmax(x: array, /, *, axis: int | None = ..., keepdims: Literal[False] = ...) -> array[Any, Dtype[np.int64]]: ...
 @overload
-def argmax(
-    x: array[_ShapeT],
-    /,
-    *,
-    axis: int | None = ...,
-    keepdims: Literal[True],
-) -> array[_ShapeT, Dtype[np.int64]]: ...
+def argmax(x: array[_ShapeT], /, *, axis: int | None = ..., keepdims: Literal[True]) -> array[_ShapeT, Dtype[np.int64]]: ...
 @overload
-def argmax(
-    x: array,
-    /,
-    *,
-    axis: int | None = ...,
-    keepdims: bool,
-) -> array[Any, Dtype[np.int64]]: ...
+def argmax(x: array, /, *, axis: int | None = ..., keepdims: bool) -> array[Any, Dtype[np.int64]]: ...
 
 @overload
-def argmin(
-    x: array,
-    /,
-    *,
-    axis: int | None = ...,
-    keepdims: Literal[False] = ...,
-) -> array[Any, Dtype[np.int64]]: ...
+def argmin(x: array, /, *, axis: int | None = ..., keepdims: Literal[False] = ...) -> array[Any, Dtype[np.int64]]: ...
 @overload
-def argmin(
-    x: array[_ShapeT],
-    /,
-    *,
-    axis: int | None = ...,
-    keepdims: Literal[True],
-) -> array[_ShapeT, Dtype[np.int64]]: ...
+def argmin(x: array[_ShapeT], /, *, axis: int | None = ..., keepdims: Literal[True]) -> array[_ShapeT, Dtype[np.int64]]: ...
 @overload
-def argmin(
-    x: array,
-    /,
-    *,
-    axis: int | None = ...,
-    keepdims: bool,
-) -> array[Any, Dtype[np.int64]]: ...
+def argmin(x: array, /, *, axis: int | None = ..., keepdims: bool) -> array[Any, Dtype[np.int64]]: ...
 
 def nonzero(x: array) -> tuple[array[Any, Dtype[np.int64]], ...]: ...
 def where(condition: array, x1: array, x2: array, /) -> array: ...

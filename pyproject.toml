@@ -57,7 +57,7 @@ strict = ["."]
 typeCheckingMode = "off"
 
 [tool.ruff]
-line-length = 79
+line-length = 130  # https://github.com/astral-sh/ruff/issues/16057
 preview = true
 
 [tool.ruff.lint]
