@@ -467,12 +467,7 @@ def asarray(
     copy: bool | None = ...,
 ) -> array[tuple[()], Dtype[np.complex128]]: ...
 @overload
-def asarray(
-    obj: object,
-    dtype: None = ...,
-    device: Device | None = ...,
-    copy: bool | None = ...,
-) -> array: ...
+def asarray(obj: object, dtype: None = ..., device: Device | None = ..., copy: bool | None = ...) -> array: ...
 @overload
 def asarray(
     obj: complex | np.number[Any] | np.timedelta64,
@@ -579,12 +574,7 @@ def asarray(
     copy: bool | None = ...,
 ) -> array[Any, Dtype[_SCT]]: ...
 @overload
-def asarray(
-    obj: object,
-    dtype: _Bool,
-    device: Device | None = ...,
-    copy: bool | None = ...,
-) -> array[Any, Dtype[np.bool_]]: ...
+def asarray(obj: object, dtype: _Bool, device: Device | None = ..., copy: bool | None = ...) -> array[Any, Dtype[np.bool_]]: ...
 @overload
 def asarray(
     obj: object,
@@ -670,12 +660,7 @@ def asarray(
     copy: bool | None = ...,
 ) -> array[Any, Dtype[np.complex128]]: ...
 @overload
-def asarray(
-    obj: object,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-    copy: bool | None = ...,
-) -> array: ...
+def asarray(obj: object, dtype: type[Any] | str, device: Device | None = ..., copy: bool | None = ...) -> array: ...
 
 @overload
 def empty(
@@ -685,12 +670,7 @@ def empty(
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[_SCT]]: ...
 @overload
-def empty(
-    shape: SupportsIndex,
-    *,
-    dtype: onp.ToDType[_SCT],
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[_SCT]]: ...
+def empty(shape: SupportsIndex, *, dtype: onp.ToDType[_SCT], device: Device | None = ...) -> array[tuple[int], Dtype[_SCT]]: ...
 @overload
 def empty(
     shape: Sequence[SupportsIndex],
@@ -720,19 +700,9 @@ def empty(
     device: Device | None = ...,
 ) -> array[tuple[int, ...], Dtype[np.float64]]: ...
 @overload
-def empty(
-    shape: _RegularShapeT,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
+def empty(shape: _RegularShapeT, *, dtype: _Bool, device: Device | None = ...) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
 @overload
-def empty(
-    shape: SupportsIndex,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[np.bool_]]: ...
+def empty(shape: SupportsIndex, *, dtype: _Bool, device: Device | None = ...) -> array[tuple[int], Dtype[np.bool_]]: ...
 @overload
 def empty(
     shape: Sequence[SupportsIndex],
@@ -748,12 +718,7 @@ def empty(
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[np.int8]]: ...
 @overload
-def empty(
-    shape: SupportsIndex,
-    *,
-    dtype: onp.AnyInt8DType,
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[np.int8]]: ...
+def empty(shape: SupportsIndex, *, dtype: onp.AnyInt8DType, device: Device | None = ...) -> array[tuple[int], Dtype[np.int8]]: ...
 @overload
 def empty(
     shape: Sequence[SupportsIndex],
@@ -973,51 +938,18 @@ def empty(
     device: Device | None = ...,
 ) -> array[tuple[int, ...], Dtype[np.complex128]]: ...
 @overload
-def empty(
-    shape: _RegularShapeT,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[_RegularShapeT]: ...
+def empty(shape: _RegularShapeT, *, dtype: type[Any] | str, device: Device | None = ...) -> array[_RegularShapeT]: ...
 @overload
-def empty(
-    shape: SupportsIndex,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[tuple[int]]: ...
+def empty(shape: SupportsIndex, *, dtype: type[Any] | str, device: Device | None = ...) -> array[tuple[int]]: ...
 @overload
-def empty(
-    shape: Sequence[SupportsIndex],
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[tuple[int, ...]]: ...
+def empty(shape: Sequence[SupportsIndex], *, dtype: type[Any] | str, device: Device | None = ...) -> array[tuple[int, ...]]: ...
 
 @overload
-def empty_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: onp.ToDType[_SCT],
-    device: Device | None = ...,
-) -> array[_ShapeT, Dtype[_SCT]]: ...
+def empty_like(x: array[_ShapeT], /, *, dtype: onp.ToDType[_SCT], device: Device | None = ...) -> array[_ShapeT, Dtype[_SCT]]: ...
 @overload
-def empty_like(
-    x: array[_ShapeT, _DTypeT],
-    /,
-    *,
-    dtype: None = ...,
-    device: Device | None = ...,
-) -> array[_ShapeT, _DTypeT]: ...
+def empty_like(x: array[_ShapeT, _DTypeT], /, *, dtype: None = ..., device: Device | None = ...) -> array[_ShapeT, _DTypeT]: ...
 @overload
-def empty_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[_ShapeT, Dtype[np.bool_]]: ...
+def empty_like(x: array[_ShapeT], /, *, dtype: _Bool, device: Device | None = ...) -> array[_ShapeT, Dtype[np.bool_]]: ...
 @overload
 def empty_like(
     x: array[_ShapeT],
@@ -1115,13 +1047,7 @@ def empty_like(
     device: Device | None = ...,
 ) -> array[_ShapeT, Dtype[np.complex128]]: ...
 @overload
-def empty_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[_ShapeT]: ...
+def empty_like(x: array[_ShapeT], /, *, dtype: type[Any] | str, device: Device | None = ...) -> array[_ShapeT]: ...
 
 @overload
 def eye(
@@ -1274,10 +1200,7 @@ def eye(
     device: Device | None = ...,
 ) -> array[tuple[int, int]]: ...
 
-def from_dlpack(
-    x: CanDLPackDevice[enum.Enum | int, int],
-    /,
-) -> array: ...
+def from_dlpack(x: CanDLPackDevice[enum.Enum | int, int], /) -> array: ...
 
 @overload
 def full(
@@ -1432,13 +1355,7 @@ def full(
     device: Device | None = ...,
 ) -> array[_RegularShapeT]: ...
 @overload
-def full(
-    shape: SupportsIndex,
-    fill_value: object,
-    *,
-    dtype: None = ...,
-    device: Device | None = ...,
-) -> array[tuple[int]]: ...
+def full(shape: SupportsIndex, fill_value: object, *, dtype: None = ..., device: Device | None = ...) -> array[tuple[int]]: ...
 @overload
 def full(
     shape: Sequence[SupportsIndex],
@@ -2119,12 +2036,7 @@ def ones(
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[_SCT]]: ...
 @overload
-def ones(
-    shape: SupportsIndex,
-    *,
-    dtype: onp.ToDType[_SCT],
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[_SCT]]: ...
+def ones(shape: SupportsIndex, *, dtype: onp.ToDType[_SCT], device: Device | None = ...) -> array[tuple[int], Dtype[_SCT]]: ...
 @overload
 def ones(
     shape: Sequence[SupportsIndex],
@@ -2154,19 +2066,9 @@ def ones(
     device: Device | None = ...,
 ) -> array[tuple[int, ...], Dtype[np.float64]]: ...
 @overload
-def ones(
-    shape: _RegularShapeT,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
+def ones(shape: _RegularShapeT, *, dtype: _Bool, device: Device | None = ...) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
 @overload
-def ones(
-    shape: SupportsIndex,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[np.bool_]]: ...
+def ones(shape: SupportsIndex, *, dtype: _Bool, device: Device | None = ...) -> array[tuple[int], Dtype[np.bool_]]: ...
 @overload
 def ones(
     shape: Sequence[SupportsIndex],
@@ -2182,12 +2084,7 @@ def ones(
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[np.int8]]: ...
 @overload
-def ones(
-    shape: SupportsIndex,
-    *,
-    dtype: onp.AnyInt8DType,
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[np.int8]]: ...
+def ones(shape: SupportsIndex, *, dtype: onp.AnyInt8DType, device: Device | None = ...) -> array[tuple[int], Dtype[np.int8]]: ...
 @overload
 def ones(
     shape: Sequence[SupportsIndex],
@@ -2406,51 +2303,18 @@ def ones(
     device: Device | None = ...,
 ) -> array[tuple[int, ...], Dtype[np.complex128]]: ...
 @overload
-def ones(
-    shape: _RegularShapeT,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[_RegularShapeT]: ...
+def ones(shape: _RegularShapeT, *, dtype: type[Any] | str, device: Device | None = ...) -> array[_RegularShapeT]: ...
 @overload
-def ones(
-    shape: SupportsIndex,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[tuple[int]]: ...
+def ones(shape: SupportsIndex, *, dtype: type[Any] | str, device: Device | None = ...) -> array[tuple[int]]: ...
 @overload
-def ones(
-    shape: Sequence[SupportsIndex],
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[tuple[int, ...]]: ...
+def ones(shape: Sequence[SupportsIndex], *, dtype: type[Any] | str, device: Device | None = ...) -> array[tuple[int, ...]]: ...
 
 @overload
-def ones_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: onp.ToDType[_SCT],
-    device: Device | None = ...,
-) -> array[_ShapeT, Dtype[_SCT]]: ...
+def ones_like(x: array[_ShapeT], /, *, dtype: onp.ToDType[_SCT], device: Device | None = ...) -> array[_ShapeT, Dtype[_SCT]]: ...
 @overload
-def ones_like(
-    x: array[_ShapeT, _DTypeT],
-    /,
-    *,
-    dtype: None = ...,
-    device: Device | None = ...,
-) -> array[_ShapeT, _DTypeT]: ...
+def ones_like(x: array[_ShapeT, _DTypeT], /, *, dtype: None = ..., device: Device | None = ...) -> array[_ShapeT, _DTypeT]: ...
 @overload
-def ones_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[_ShapeT, Dtype[np.bool_]]: ...
+def ones_like(x: array[_ShapeT], /, *, dtype: _Bool, device: Device | None = ...) -> array[_ShapeT, Dtype[np.bool_]]: ...
 @overload
 def ones_like(
     x: array[_ShapeT],
@@ -2548,27 +2412,10 @@ def ones_like(
     device: Device | None = ...,
 ) -> array[_ShapeT, Dtype[np.complex128]]: ...
 @overload
-def ones_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[_ShapeT]: ...
+def ones_like(x: array[_ShapeT], /, *, dtype: type[Any] | str, device: Device | None = ...) -> array[_ShapeT]: ...
 
-def tril(
-    x: array[Any, _DTypeT],
-    /,
-    *,
-    k: int = ...,
-) -> array[tuple[int, int] | tuple[int, int, int], _DTypeT]: ...
-
-def triu(
-    x: array[Any, _DTypeT],
-    /,
-    *,
-    k: int = ...,
-) -> array[tuple[int, int] | tuple[int, int, int], _DTypeT]: ...
+def tril(x: array[Any, _DTypeT], /, *, k: int = ...) -> array[tuple[int, int] | tuple[int, int, int], _DTypeT]: ...
+def triu(x: array[Any, _DTypeT], /, *, k: int = ...) -> array[tuple[int, int] | tuple[int, int, int], _DTypeT]: ...
 
 @overload
 def zeros(
@@ -2578,12 +2425,7 @@ def zeros(
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[_SCT]]: ...
 @overload
-def zeros(
-    shape: SupportsIndex,
-    *,
-    dtype: onp.ToDType[_SCT],
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[_SCT]]: ...
+def zeros(shape: SupportsIndex, *, dtype: onp.ToDType[_SCT], device: Device | None = ...) -> array[tuple[int], Dtype[_SCT]]: ...
 @overload
 def zeros(
     shape: Sequence[SupportsIndex],
@@ -2613,19 +2455,9 @@ def zeros(
     device: Device | None = ...,
 ) -> array[tuple[int, ...], Dtype[np.float64]]: ...
 @overload
-def zeros(
-    shape: _RegularShapeT,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
+def zeros(shape: _RegularShapeT, *, dtype: _Bool, device: Device | None = ...) -> array[_RegularShapeT, Dtype[np.bool_]]: ...
 @overload
-def zeros(
-    shape: SupportsIndex,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[np.bool_]]: ...
+def zeros(shape: SupportsIndex, *, dtype: _Bool, device: Device | None = ...) -> array[tuple[int], Dtype[np.bool_]]: ...
 @overload
 def zeros(
     shape: Sequence[SupportsIndex],
@@ -2641,12 +2473,7 @@ def zeros(
     device: Device | None = ...,
 ) -> array[_RegularShapeT, Dtype[np.int8]]: ...
 @overload
-def zeros(
-    shape: SupportsIndex,
-    *,
-    dtype: onp.AnyInt8DType,
-    device: Device | None = ...,
-) -> array[tuple[int], Dtype[np.int8]]: ...
+def zeros(shape: SupportsIndex, *, dtype: onp.AnyInt8DType, device: Device | None = ...) -> array[tuple[int], Dtype[np.int8]]: ...
 @overload
 def zeros(
     shape: Sequence[SupportsIndex],
@@ -2865,51 +2692,18 @@ def zeros(
     device: Device | None = ...,
 ) -> array[tuple[int, ...], Dtype[np.complex128]]: ...
 @overload
-def zeros(
-    shape: _RegularShapeT,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[_RegularShapeT]: ...
+def zeros(shape: _RegularShapeT, *, dtype: type[Any] | str, device: Device | None = ...) -> array[_RegularShapeT]: ...
 @overload
-def zeros(
-    shape: SupportsIndex,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[tuple[int]]: ...
+def zeros(shape: SupportsIndex, *, dtype: type[Any] | str, device: Device | None = ...) -> array[tuple[int]]: ...
 @overload
-def zeros(
-    shape: Sequence[SupportsIndex],
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[tuple[int, ...]]: ...
+def zeros(shape: Sequence[SupportsIndex], *, dtype: type[Any] | str, device: Device | None = ...) -> array[tuple[int, ...]]: ...
 
 @overload
-def zeros_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: onp.ToDType[_SCT],
-    device: Device | None = ...,
-) -> array[_ShapeT, Dtype[_SCT]]: ...
+def zeros_like(x: array[_ShapeT], /, *, dtype: onp.ToDType[_SCT], device: Device | None = ...) -> array[_ShapeT, Dtype[_SCT]]: ...
 @overload
-def zeros_like(
-    x: array[_ShapeT, _DTypeT],
-    /,
-    *,
-    dtype: None = ...,
-    device: Device | None = ...,
-) -> array[_ShapeT, _DTypeT]: ...
+def zeros_like(x: array[_ShapeT, _DTypeT], /, *, dtype: None = ..., device: Device | None = ...) -> array[_ShapeT, _DTypeT]: ...
 @overload
-def zeros_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: _Bool,
-    device: Device | None = ...,
-) -> array[_ShapeT, Dtype[np.bool_]]: ...
+def zeros_like(x: array[_ShapeT], /, *, dtype: _Bool, device: Device | None = ...) -> array[_ShapeT, Dtype[np.bool_]]: ...
 @overload
 def zeros_like(
     x: array[_ShapeT],
@@ -3007,28 +2801,12 @@ def zeros_like(
     device: Device | None = ...,
 ) -> array[_ShapeT, Dtype[np.complex128]]: ...
 @overload
-def zeros_like(
-    x: array[_ShapeT],
-    /,
-    *,
-    dtype: type[Any] | str,
-    device: Device | None = ...,
-) -> array[_ShapeT]: ...
+def zeros_like(x: array[_ShapeT], /, *, dtype: type[Any] | str, device: Device | None = ...) -> array[_ShapeT]: ...
 
-_Bool: TypeAlias = type[bool] | Literal[
-    "?",
-    "=?",
-    "<?",
-    ">?",
-    "bool",
-    "bool_",
-    "bool8",
-]
+_Bool: TypeAlias = type[bool] | Literal["?", "=?", "<?", ">?", "bool", "bool_", "bool8"]
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
 _NumberT = TypeVar("_NumberT", bound=np.number[Any])
-_NumPyDType: TypeAlias = np.dtype[
-    np.bool_ | np.number[Any] | np.datetime64 | np.timedelta64
-]
+_NumPyDType: TypeAlias = np.dtype[np.bool_ | np.number[Any] | np.datetime64 | np.timedelta64]
 _RegularShapeT = TypeVar(
     "_RegularShapeT",
     tuple[()],

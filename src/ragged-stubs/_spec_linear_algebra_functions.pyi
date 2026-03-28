@@ -35,17 +35,8 @@ from ._spec_array_object import array
 from ._typing import Dtype
 
 def matmul(x1: array[_AtLeast1D], x2: array[_AtLeast1D], /) -> array: ...
-def matrix_transpose(
-    x: array[_AtLeast2DT, _DTypeT],
-    /,
-) -> array[_AtLeast2DT, _DTypeT]: ...
-def tensordot(
-    x1: array,
-    x2: array,
-    /,
-    *,
-    axes: int | tuple[Sequence[int], Sequence[int]] = ...,
-) -> array: ...
+def matrix_transpose(x: array[_AtLeast2DT, _DTypeT], /) -> array[_AtLeast2DT, _DTypeT]: ...
+def tensordot(x1: array, x2: array, /, *, axes: int | tuple[Sequence[int], Sequence[int]] = ...) -> array: ...
 def vecdot(x1: array, x2: array, /, *, axis: int = ...) -> array: ...
 
 _AtLeast1D: TypeAlias = tuple[int, Unpack[tuple[int | None, ...]]]

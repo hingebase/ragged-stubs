@@ -38,141 +38,43 @@ from ._spec_array_object import array
 from ._typing import Dtype, Shape
 
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.ToDType[_SCT],
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[_SCT]]: ...
+def astype(x: array[_ShapeT], dtype: onp.ToDType[_SCT], /, *, copy: bool = ...) -> array[_ShapeT, Dtype[_SCT]]: ...
+@overload
+def astype(x: array[_ShapeT], dtype: None, /, *, copy: bool = ...) -> array[_ShapeT, Any]: ...
 @overload
 def astype(
     x: array[_ShapeT],
-    dtype: None,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Any]: ...
-@overload
-def astype(
-    x: array[_ShapeT],
-    dtype: type[bool] | Literal[
-        "?",
-        "=?",
-        "<?",
-        ">?",
-        "bool",
-        "bool_",
-        "bool8",
-    ],
+    dtype: type[bool] | Literal["?", "=?", "<?", ">?", "bool", "bool_", "bool8"],
     /,
     *,
     copy: bool = ...,
 ) -> array[_ShapeT, Dtype[np.bool_]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyInt8DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.int8]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyInt8DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.int8]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyInt16DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.int16]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyInt16DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.int16]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyInt32DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.int32]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyInt32DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.int32]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyInt64DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.int64]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyInt64DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.int64]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyUInt8DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.uint8]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyUInt8DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.uint8]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyUInt16DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.uint16]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyUInt16DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.uint16]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyUInt32DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.uint32]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyUInt32DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.uint32]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyUInt64DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.uint64]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyUInt64DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.uint64]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyFloat32DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.float32]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyFloat32DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.float32]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyFloat64DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.float64]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyFloat64DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.float64]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyComplex64DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.complex64]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyComplex64DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.complex64]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: onp.AnyComplex128DType,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT, Dtype[np.complex128]]: ...
+def astype(x: array[_ShapeT], dtype: onp.AnyComplex128DType, /, *, copy: bool = ...) -> array[_ShapeT, Dtype[np.complex128]]: ...
 @overload
-def astype(
-    x: array[_ShapeT],
-    dtype: type[Any] | str,
-    /,
-    *,
-    copy: bool = ...,
-) -> array[_ShapeT]: ...
+def astype(x: array[_ShapeT], dtype: type[Any] | str, /, *, copy: bool = ...) -> array[_ShapeT]: ...
 
 def can_cast(from_: object, to: npt.DTypeLike, /) -> bool: ...
 
@@ -186,17 +88,11 @@ class finfo_object(Generic[_FloatingT_co]):  # noqa: N801
     dtype: np.dtype[_FloatingT_co]
 
 @overload
-def finfo(
-    type: onp.ToDType[_FloatingT_co],
-) -> finfo_object[_FloatingT_co]: ...
+def finfo(type: onp.ToDType[_FloatingT_co]) -> finfo_object[_FloatingT_co]: ...
 @overload
-def finfo(
-    type: onp.AnyFloat32DType | onp.AnyComplex64DType,
-) -> finfo_object[np.float32]: ...
+def finfo(type: onp.AnyFloat32DType | onp.AnyComplex64DType) -> finfo_object[np.float32]: ...
 @overload
-def finfo(
-    type: onp.AnyFloat64DType | onp.AnyComplex128DType,
-) -> finfo_object[np.float64]: ...
+def finfo(type: onp.AnyFloat64DType | onp.AnyComplex128DType) -> finfo_object[np.float64]: ...
 
 @dataclasses.dataclass
 class iinfo_object(Generic[_IntegerT_co]):  # noqa: N801
@@ -224,11 +120,7 @@ def iinfo(type: onp.AnyUInt32DType) -> iinfo_object[np.uint32]: ...
 @overload
 def iinfo(type: onp.AnyUInt64DType) -> iinfo_object[np.uint64]: ...
 
-def isdtype(
-    dtype: Dtype,
-    kind: Dtype | str | tuple[Dtype | str, ...],
-) -> bool: ...
-
+def isdtype(dtype: Dtype, kind: Dtype | str | tuple[Dtype | str, ...]) -> bool: ...
 def result_type(*arrays_and_dtypes: object) -> np.dtype[Any]: ...
 
 if sys.version_info >= (3, 14):

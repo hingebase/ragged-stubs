@@ -41,14 +41,8 @@ def argsort(
     descending: bool = ...,
     stable: bool = ...,
 ) -> array[_ShapeT, Dtype[np.int64]]: ...
-def sort(
-    x: _ArrayT,
-    /,
-    *,
-    axis: int = ...,
-    descending: bool = ...,
-    stable: bool = ...,
-) -> _ArrayT: ...
+
+def sort(x: _ArrayT, /, *, axis: int = ..., descending: bool = ..., stable: bool = ...) -> _ArrayT: ...
 
 _ArrayT = TypeVar("_ArrayT", bound=array)
 _ShapeT = TypeVar("_ShapeT", bound=Shape)
