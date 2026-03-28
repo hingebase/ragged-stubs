@@ -42,6 +42,8 @@ def regularise_to_float(t: np.dtype[_CanFloat64]) -> np.dtype[_CanFloat64 | np.f
 @overload
 def regularise_to_float(t: np.dtype[_SCT]) -> np.dtype[_SCT]: ...
 
+def is_sorted_descending_all_levels(x: array[tuple[int, Unpack[tuple[int | None, ...]]]]) -> bool: ...
+
 @overload
 def is_effectively_regular(
     x: array[tuple[int, None, Unpack[tuple[int | None, ...]]]],
@@ -79,6 +81,8 @@ def is_regular_or_effectively_regular(
 ) -> Literal[True]: ...
 @overload
 def is_regular_or_effectively_regular(x: object) -> bool: ...
+
+def safe_max_num(arr: array[tuple[int, int, Unpack[tuple[int | None, ...]]]], axis: int | None = ...) -> int: ...
 
 _CanFloat16 = TypeVar("_CanFloat16", np.int8, np.uint8, np.bool_)
 _CanFloat32 = TypeVar("_CanFloat32", np.int16, np.uint16)
