@@ -77,6 +77,7 @@ def is_regular_or_effectively_regular(
 def is_regular_or_effectively_regular(
     x: array[tuple[int, int, Unpack[tuple[int | None, ...]]]],
 ) -> Literal[True]: ...
+@overload
 def is_regular_or_effectively_regular(x: object) -> bool: ...
 
 _CanFloat16 = TypeVar("_CanFloat16", np.int8, np.uint8, np.bool_)
