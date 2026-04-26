@@ -37,9 +37,7 @@ dependencies = [
 ]
 
 [dependency-groups]
-numtype = [
-    "numtype @ git+https://github.com/numpy/numtype.git@e436b884d7b3f7831790da67a95aa6dfda2e57f7",
-]
+numtype = ["numtype <2.2.4"]
 
 [[project.authors]]
 name = "hingebase"
@@ -69,4 +67,5 @@ tables-out-of-order = "off"
 all = "error"
 
 [tool.uv.sources]
+numtype = { git = "https://github.com/numpy/numtype", rev = "e436b884d7b3f7831790da67a95aa6dfda2e57f7" }
 ragged = { git = "https://github.com/scikit-hep/ragged", branch = "main" }
