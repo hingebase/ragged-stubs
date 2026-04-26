@@ -162,6 +162,7 @@ __all__ = [  # noqa: RUF022
     # _spec_utility_functions
     "all",
     "any",
+    "__version__",
 ]
 
 from typing import Final
@@ -311,5 +312,6 @@ from ._spec_utility_functions import (
     all,  # noqa: A004
     any,  # noqa: A004
 )
+from ._version import version as __version__
 
 __array_api_version__: Final[str]
