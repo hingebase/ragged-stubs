@@ -594,6 +594,7 @@ class array(  # noqa: N801
     @override
     def __repr__(self) -> str: ...  # noqa: PYI029
     def __contains__(self, other: complex) -> bool: ...
+    @override
     def __len__(self) -> int: ...
     def __iter__(self: array[tuple[int, Unpack[tuple[_Axis, ...]]], _DTypeT]) -> Iterator[array[Any, _DTypeT]]: ...
 
@@ -635,6 +636,7 @@ class array(  # noqa: N801
     def size(self) -> int: ...
     @property
     def T(self: array[_2DT, _DTypeT]) -> array[_2DT, _DTypeT]: ...  # noqa: N802
+    @override
     def __abs__(self) -> Self: ...
 
     @overload
@@ -658,11 +660,14 @@ class array(  # noqa: N801
     def __array_namespace__(self, *, api_version: str | None = ...) -> Any: ...  # noqa: ANN401
 
     def __bool__(self) -> bool: ...
+    @override
     def __complex__(self) -> complex: ...
 
     # https://data-apis.org/array-api/latest/API_specification/generated/array_api.array.__dlpack__.html
-    def __dlpack__(self, *, stream: int | Any | None = ...) -> CapsuleType: ...  # noqa: ANN401
+    @override
+    def __dlpack__(self, *, stream: int | Any | None = ...) -> CapsuleType: ...
 
+    @override
     def __dlpack_device__(self) -> tuple[enum.Enum, int]: ...
 
     @overload
@@ -676,6 +681,7 @@ class array(  # noqa: N801
     @overload
     def __eq__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
 
+    @override
     def __float__(self) -> float: ...
 
     @overload
@@ -705,7 +711,9 @@ class array(  # noqa: N801
     @overload
     def __gt__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...
 
+    @override
     def __index__(self) -> int: ...
+    @override
     def __int__(self) -> int: ...
     def __invert__(self: array[_ShapeT, _BoolOrIntDTypeT]) -> array[_ShapeT, _BoolOrIntDTypeT]: ...
 
