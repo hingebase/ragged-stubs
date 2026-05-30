@@ -37,9 +37,7 @@ dependencies = [
 ]
 
 [dependency-groups]
-numtype = [
-    "numtype @ git+https://github.com/numpy/numtype.git@e436b884d7b3f7831790da67a95aa6dfda2e57f7",
-]
+numtype = ["numtype <2.2.4"]
 
 [[project.authors]]
 name = "hingebase"
@@ -55,6 +53,9 @@ reportUnnecessaryTypeIgnoreComment = "warning"
 strict = ["."]
 typeCheckingMode = "off"
 
+[tool.pyrefly]
+preset = "strict"
+
 [tool.ruff]
 line-length = 130  # https://github.com/astral-sh/ruff/issues/16057
 preview = true
@@ -66,11 +67,8 @@ select = ["ALL"]
 tables-out-of-order = "off"
 
 [tool.ty.rules]
-division-by-zero = "warn"
-possibly-missing-attribute = "warn"
-possibly-missing-import = "warn"
-possibly-unresolved-reference = "warn"
-unsupported-dynamic-base = "warn"
+all = "error"
 
 [tool.uv.sources]
+numtype = { git = "https://github.com/numpy/numtype", rev = "e436b884d7b3f7831790da67a95aa6dfda2e57f7" }
 ragged = { git = "https://github.com/scikit-hep/ragged", branch = "main" }
