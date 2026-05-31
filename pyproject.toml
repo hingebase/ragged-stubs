@@ -69,6 +69,12 @@ tables-out-of-order = "off"
 [tool.ty.rules]
 all = "error"
 
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+
 [tool.uv.sources]
 numtype = { git = "https://github.com/numpy/numtype", rev = "e436b884d7b3f7831790da67a95aa6dfda2e57f7" }
 ragged = { git = "https://github.com/scikit-hep/ragged", branch = "main" }
