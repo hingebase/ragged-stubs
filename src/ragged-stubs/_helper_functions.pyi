@@ -68,8 +68,6 @@ def is_regular_or_effectively_regular(x: array[tuple[int, int, Unpack[tuple[int 
 @overload
 def is_regular_or_effectively_regular(x: object) -> bool: ...
 
-def safe_max_num(arr: array[tuple[int, int, Unpack[tuple[int | None, ...]]]], axis: int | None = ...) -> int: ...
-
 _CanFloat16 = TypeVar("_CanFloat16", np.int8, np.uint8, np.bool_)
 _CanFloat32 = TypeVar("_CanFloat32", np.int16, np.uint16)
 _CanFloat64 = TypeVar("_CanFloat64", np.int32, np.uint32, np.int64, np.uint64)
