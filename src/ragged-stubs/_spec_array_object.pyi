@@ -28,14 +28,15 @@
 
 import enum
 import sys
-from collections.abc import Iterator, Sized
-from typing import Any, Generic, SupportsAbs, SupportsComplex, SupportsFloat, SupportsIndex, SupportsInt, TypeAlias, overload
+import types
+from collections.abc import Callable, Iterable, Iterator, Mapping, Sized
+from typing import Generic, Literal, SupportsAbs, SupportsComplex, SupportsFloat, SupportsIndex, SupportsInt, TypeAlias
 
 import numpy as np
 import optype as op
 import optype.numpy as onp
 from optype.dlpack import CanDLPackCompat, CanDLPackDevice
-from typing_extensions import CapsuleType, Self, TypeVar, Unpack, override
+from typing_extensions import Any, CapsuleType, Self, TypeVar, Unpack, overload, override
 
 from ._typing import Device, Dtype, Shape
 
@@ -647,17 +648,31 @@ class array(  # noqa: N801
     def __add__(self, other: object) -> array: ...
 
     @overload
-    def __and__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
-    ) -> array[Any, _BoolOrIntDType]: ...
+    def __and__(self: _BoolOrIntArray, other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType]) -> _BoolOrIntArray: ...
     @overload
     def __and__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, _BoolOrIntDType]: ...
     @overload
-    def __and__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, _BoolOrIntDType]: ...
+    def __and__(self: _BoolOrIntArray, other: object) -> _BoolOrIntArray: ...
 
     # https://data-apis.org/array-api/latest/API_specification/generated/array_api.array.__array_namespace__.html
     def __array_namespace__(self, *, api_version: str | None = ...) -> Any: ...  # noqa: ANN401
+
+    # These special methods are not meant to be called explicitly,
+    # and we haven't seen any necessity to return `Any`
+    def __array_ufunc__(
+        self,
+        ufunc: np.ufunc,
+        method: Literal["__call__", "reduce", "reduceat", "accumulate", "outer", "at"],
+        *inputs: object,
+        **kwargs: object,
+    ) -> object: ...
+    def __array_function__(
+        self,
+        func: Callable[..., Any],
+        types: Iterable[type[Any]],
+        args: Iterable[Any],
+        kwargs: Mapping[str, Any],
+    ) -> object: ...
 
     def __bool__(self) -> bool: ...
     @override
@@ -703,7 +718,7 @@ class array(  # noqa: N801
     @overload
     def __ge__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...
 
-    def __getitem__(self, key: object) -> array[Any, _DTypeT_co]: ...
+    def __getitem__(self, key: _GetSliceKey | tuple[_GetSliceKey, ...] | _BoolOrIntArray) -> array[Any, _DTypeT_co]: ...
 
     @overload
     def __gt__(self, other: array | np.ndarray[Any, Dtype], /) -> array[Any, Dtype[np.bool_]]: ...
@@ -727,13 +742,13 @@ class array(  # noqa: N801
 
     @overload
     def __lshift__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
+        self: _BoolOrIntArray,
+        other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType],
     ) -> array[Any, Dtype[_Integer]]: ...
     @overload
     def __lshift__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, Dtype[_Integer]]: ...
     @overload
-    def __lshift__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, Dtype[_Integer]]: ...
+    def __lshift__(self: _BoolOrIntArray, other: object) -> array[Any, Dtype[_Integer]]: ...
 
     @overload
     def __lt__(self, other: array | np.ndarray[Any, Dtype], /) -> array[Any, Dtype[np.bool_]]: ...
@@ -742,7 +757,7 @@ class array(  # noqa: N801
     @overload
     def __lt__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...
 
-    def __matmul__(self, other: array) -> array: ...
+    def __matmul__(self: array[_AtLeast2D], other: array[_AtLeast2D]) -> array[_AtLeast2D]: ...
 
     @overload
     def __mod__(
@@ -777,14 +792,11 @@ class array(  # noqa: N801
     def __neg__(self: array[_ShapeT, _NumericDTypeT]) -> array[_ShapeT, _NumericDTypeT]: ...
 
     @overload
-    def __or__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
-    ) -> array[Any, _BoolOrIntDType]: ...
+    def __or__(self: _BoolOrIntArray, other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType]) -> _BoolOrIntArray: ...
     @overload
     def __or__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, _BoolOrIntDType]: ...
     @overload
-    def __or__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, _BoolOrIntDType]: ...
+    def __or__(self: _BoolOrIntArray, other: object) -> _BoolOrIntArray: ...
 
     def __pos__(self: array[_ShapeT, _NumericDTypeT]) -> array[_ShapeT, _NumericDTypeT]: ...
 
@@ -797,15 +809,15 @@ class array(  # noqa: N801
 
     @overload
     def __rshift__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
+        self: _BoolOrIntArray,
+        other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType],
     ) -> array[Any, Dtype[_Integer]]: ...
     @overload
     def __rshift__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, Dtype[_Integer]]: ...
     @overload
-    def __rshift__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, Dtype[_Integer]]: ...
+    def __rshift__(self: _BoolOrIntArray, other: object) -> array[Any, Dtype[_Integer]]: ...
 
-    def __setitem__(self, key: object, value: object) -> None: ...
+    def __setitem__(self, key: _ToIndex | tuple[_ToIndex, ...] | _BoolOrIntArray, value: object) -> None: ...
 
     @overload
     def __sub__(self: array[Any, _NumericDType], other: array | np.ndarray[Any, Dtype]) -> array[Any, _NumericDType]: ...
@@ -829,17 +841,17 @@ class array(  # noqa: N801
     def __truediv__(self, other: object, /) -> array[Any, _InexactDType]: ...
 
     @overload
-    def __xor__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
-    ) -> array[Any, _BoolOrIntDType]: ...
+    def __xor__(self: _BoolOrIntArray, other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType]) -> _BoolOrIntArray: ...
     @overload
     def __xor__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, _BoolOrIntDType]: ...
     @overload
-    def __xor__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, _BoolOrIntDType]: ...
+    def __xor__(self: _BoolOrIntArray, other: object) -> _BoolOrIntArray: ...
 
     # https://data-apis.org/array-api/latest/API_specification/generated/array_api.array.to_device.html
     def to_device(self, device: Device, /, *, stream: int | Any | None = ...) -> Self: ...  # noqa: ANN401
+
+    @property
+    def at(self) -> _AtIndexHelper[_ShapeT_co, _DTypeT_co]: ...
 
     @overload
     def __iadd__(self, other: array | np.ndarray[Any, Dtype]) -> array: ...
@@ -905,57 +917,48 @@ class array(  # noqa: N801
     @overload
     def __imod__(self: array[Any, _RealDType], other: object, /) -> array[Any, Dtype[_RealNumber]]: ...
 
-    def __imatmul__(self, other: array) -> array: ...  # noqa: PYI034
+    def __imatmul__(self: array[_AtLeast2D], other: array[_AtLeast2D]) -> array[_AtLeast2D]: ...
 
     @overload
-    def __iand__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
-    ) -> array[Any, _BoolOrIntDType]: ...
+    def __iand__(self: _BoolOrIntArray, other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType]) -> _BoolOrIntArray: ...
     @overload
     def __iand__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, _BoolOrIntDType]: ...
     @overload
-    def __iand__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, _BoolOrIntDType]: ...
+    def __iand__(self: _BoolOrIntArray, other: object) -> _BoolOrIntArray: ...
 
     @overload
-    def __ior__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
-    ) -> array[Any, _BoolOrIntDType]: ...
+    def __ior__(self: _BoolOrIntArray, other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType]) -> _BoolOrIntArray: ...
     @overload
     def __ior__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, _BoolOrIntDType]: ...
     @overload
-    def __ior__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, _BoolOrIntDType]: ...
+    def __ior__(self: _BoolOrIntArray, other: object) -> _BoolOrIntArray: ...
 
     @overload
-    def __ixor__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
-    ) -> array[Any, _BoolOrIntDType]: ...
+    def __ixor__(self: _BoolOrIntArray, other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType]) -> _BoolOrIntArray: ...
     @overload
     def __ixor__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, _BoolOrIntDType]: ...
     @overload
-    def __ixor__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, _BoolOrIntDType]: ...
+    def __ixor__(self: _BoolOrIntArray, other: object) -> _BoolOrIntArray: ...
 
     @overload
     def __ilshift__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
+        self: _BoolOrIntArray,
+        other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType],
     ) -> array[Any, Dtype[_Integer]]: ...
     @overload
     def __ilshift__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, Dtype[_Integer]]: ...
     @overload
-    def __ilshift__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, Dtype[_Integer]]: ...
+    def __ilshift__(self: _BoolOrIntArray, other: object) -> array[Any, Dtype[_Integer]]: ...
 
     @overload
     def __irshift__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
+        self: _BoolOrIntArray,
+        other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType],
     ) -> array[Any, Dtype[_Integer]]: ...
     @overload
     def __irshift__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, Dtype[_Integer]]: ...
     @overload
-    def __irshift__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, Dtype[_Integer]]: ...
+    def __irshift__(self: _BoolOrIntArray, other: object) -> array[Any, Dtype[_Integer]]: ...
 
     __radd__ = __add__
     __rmul__ = __mul__
@@ -1015,25 +1018,79 @@ class array(  # noqa: N801
 
     @overload
     def __rlshift__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
+        self: _BoolOrIntArray,
+        other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType],
     ) -> array[Any, Dtype[_Integer]]: ...
     @overload
     def __rlshift__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, Dtype[_Integer]]: ...
     @overload
-    def __rlshift__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, Dtype[_Integer]]: ...
+    def __rlshift__(self: _BoolOrIntArray, other: object) -> array[Any, Dtype[_Integer]]: ...
 
     @overload
     def __rrshift__(
-        self: array[Any, _BoolOrIntDType],
-        other: array[Any, _BoolOrIntDType] | np.ndarray[Any, _BoolOrIntDType],
+        self: _BoolOrIntArray,
+        other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType],
     ) -> array[Any, Dtype[_Integer]]: ...
     @overload
     def __rrshift__(self: array[_ShapeT, _BoolOrIntDType], other: int | _Integer) -> array[_ShapeT, Dtype[_Integer]]: ...
     @overload
-    def __rrshift__(self: array[Any, _BoolOrIntDType], other: object) -> array[Any, Dtype[_Integer]]: ...
+    def __rrshift__(self: _BoolOrIntArray, other: object) -> array[Any, Dtype[_Integer]]: ...
 
-    def __rmatmul__(self, other: array) -> array: ...
+    def __rmatmul__(self: array[_AtLeast2D], other: array[_AtLeast2D]) -> array[_AtLeast2D]: ...
+
+class _AtIndexHelper(Generic[_ShapeT_co, _DTypeT_co]):
+    def __init__(self, x: array[_ShapeT_co, _DTypeT_co]) -> None: ...
+    def __getitem__(
+        self,
+        idx: _GetSliceKey | tuple[_GetSliceKey, ...] | _BoolOrIntArray,
+    ) -> _AtIndexer[_ShapeT_co, _DTypeT_co]: ...
+
+class _AtIndexer(Generic[_ShapeT_co, _DTypeT_co]):
+    def __init__(
+        self,
+        x: array[_ShapeT_co, _DTypeT_co],
+        idx: _GetSliceKey | tuple[_GetSliceKey, ...] | _BoolOrIntArray,
+    ) -> None: ...
+
+    @overload
+    def set(self: _AtIndexer[_AtLeast1DT, _DTypeT], val: object) -> array[_AtLeast1DT, _DTypeT]: ...
+    @overload
+    def set(self: _AtIndexer[tuple[()], _DTypeT], val: object) -> array[tuple[Literal[1]], _DTypeT]: ...
+
+    @overload
+    def add(self: _AtIndexer[_AtLeast1DT, _DTypeT], val: object) -> array[_AtLeast1DT, _DTypeT]: ...
+    @overload
+    def add(self: _AtIndexer[tuple[()], _DTypeT], val: object) -> array[tuple[Literal[1]], _DTypeT]: ...
+
+    @overload
+    def subtract(self: _AtIndexer[_AtLeast1DT, _DTypeT], val: object) -> array[_AtLeast1DT, _DTypeT]: ...
+    @overload
+    def subtract(self: _AtIndexer[tuple[()], _DTypeT], val: object) -> array[tuple[Literal[1]], _DTypeT]: ...
+
+    @overload
+    def multiply(self: _AtIndexer[_AtLeast1DT, _DTypeT], val: object) -> array[_AtLeast1DT, _DTypeT]: ...
+    @overload
+    def multiply(self: _AtIndexer[tuple[()], _DTypeT], val: object) -> array[tuple[Literal[1]], _DTypeT]: ...
+
+    @overload
+    def divide(self: _AtIndexer[_AtLeast1DT, _DTypeT], val: object) -> array[_AtLeast1DT, _DTypeT]: ...
+    @overload
+    def divide(self: _AtIndexer[tuple[()], _DTypeT], val: object) -> array[tuple[Literal[1]], _DTypeT]: ...
+
+    @overload
+    def power(self: _AtIndexer[_AtLeast1DT, _DTypeT], val: object) -> array[_AtLeast1DT, _DTypeT]: ...
+    @overload
+    def power(self: _AtIndexer[tuple[()], _DTypeT], val: object) -> array[tuple[Literal[1]], _DTypeT]: ...
+
+    @overload
+    def min(self: _AtIndexer[_AtLeast1DT, _DTypeT], val: object) -> array[_AtLeast1DT, _DTypeT]: ...
+    @overload
+    def min(self: _AtIndexer[tuple[()], _DTypeT], val: object) -> array[tuple[Literal[1]], _DTypeT]: ...
+
+    @overload
+    def max(self: _AtIndexer[_AtLeast1DT, _DTypeT], val: object) -> array[_AtLeast1DT, _DTypeT]: ...
+    @overload
+    def max(self: _AtIndexer[tuple[()], _DTypeT], val: object) -> array[tuple[Literal[1]], _DTypeT]: ...
 
 if sys.version_info >= (3, 14):
     _ComplexFloating: TypeAlias = np.complexfloating
@@ -1046,6 +1103,25 @@ else:
 
 _Axis: TypeAlias = int | None
 _2DT = TypeVar("_2DT", tuple[int, int], tuple[int, _Axis])
+_AtLeast1DT = TypeVar(
+    "_AtLeast1DT",
+    tuple[int],
+    tuple[int, int],
+    tuple[int, int, int],
+    tuple[int, int, int, int],
+    tuple[int, int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, int, Unpack[tuple[int, ...]]],
+    tuple[int, int, Unpack[tuple[int, ...]]],
+    tuple[int, Unpack[tuple[int, ...]]],
+    tuple[int, _Axis],
+    tuple[int, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis],
+    tuple[int, _Axis, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
+    tuple[int, Unpack[tuple[_Axis, ...]]],
+)
+_AtLeast2D: TypeAlias = tuple[int, int | None, Unpack[tuple[int | None, ...]]]
 _AtLeast2DT = TypeVar(
     "_AtLeast2DT",
     tuple[int, int],
@@ -1062,9 +1138,11 @@ _AtLeast2DT = TypeVar(
     tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
 )
 _BoolOrIntDType: TypeAlias = Dtype[np.bool_ | _Integer]
+_BoolOrIntArray: TypeAlias = array[Any, _BoolOrIntDType]
 _BoolOrIntDTypeT = TypeVar("_BoolOrIntDTypeT", bound=_BoolOrIntDType)
 _DTypeT = TypeVar("_DTypeT", bound=Dtype)
 _DTypeT_co = TypeVar("_DTypeT_co", bound=Dtype, covariant=True, default=np.dtype[Any])
+_GetSliceKey: TypeAlias = int | slice | types.EllipsisType | None
 _InexactDType: TypeAlias = Dtype[np.inexact[Any]]
 _NumberT = TypeVar("_NumberT", bound=np.number[Any])
 _NumericDType: TypeAlias = Dtype[np.number[Any]]
@@ -1076,3 +1154,4 @@ _RegularShapeT = TypeVar("_RegularShapeT", bound=tuple[int, ...])
 _SCT = TypeVar("_SCT", bound=np.bool_ | np.number[Any])
 _ShapeT = TypeVar("_ShapeT", bound=Shape)
 _ShapeT_co = TypeVar("_ShapeT_co", bound=Shape, covariant=True, default=tuple[Any, ...])
+_ToIndex: TypeAlias = SupportsIndex | slice | types.EllipsisType | onp.ToIntND | None

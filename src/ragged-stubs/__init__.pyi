@@ -28,6 +28,8 @@
 
 __all__ = [  # noqa: RUF022
     "__array_api_version__",
+    # io
+    "io",
     # _spec_array_object
     "array",
     # _spec_constants
@@ -167,6 +169,7 @@ __all__ = [  # noqa: RUF022
 
 from typing import Final
 
+from . import io
 from ._spec_array_object import array
 from ._spec_constants import (
     e,

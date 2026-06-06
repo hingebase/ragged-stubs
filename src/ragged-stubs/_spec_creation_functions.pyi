@@ -2024,7 +2024,7 @@ def linspace(
 ) -> array[onp.AtLeast1D]: ...
 
 def meshgrid(
-    *arrays: array,
+    *arrays: array[tuple[int]],
     indexing: Literal["xy", "ij"] = ...,
 ) -> list[array]: ...
 
