@@ -757,7 +757,7 @@ class array(  # noqa: N801
     @overload
     def __lt__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...
 
-    def __matmul__(self: array[_AtLeast2D], other: array[_AtLeast2D]) -> array[_AtLeast2D]: ...
+    def __matmul__(self: array[_AtLeast1D], other: object) -> array: ...
 
     @overload
     def __mod__(
@@ -917,7 +917,7 @@ class array(  # noqa: N801
     @overload
     def __imod__(self: array[Any, _RealDType], other: object, /) -> array[Any, Dtype[_RealNumber]]: ...
 
-    def __imatmul__(self: array[_AtLeast2D], other: array[_AtLeast2D]) -> array[_AtLeast2D]: ...
+    def __imatmul__(self: array[_AtLeast1DT], other: object) -> array[_AtLeast1DT]: ...
 
     @overload
     def __iand__(self: _BoolOrIntArray, other: _BoolOrIntArray | np.ndarray[Any, _BoolOrIntDType]) -> _BoolOrIntArray: ...
@@ -1036,7 +1036,7 @@ class array(  # noqa: N801
     @overload
     def __rrshift__(self: _BoolOrIntArray, other: object) -> array[Any, Dtype[_Integer]]: ...
 
-    def __rmatmul__(self: array[_AtLeast2D], other: array[_AtLeast2D]) -> array[_AtLeast2D]: ...
+    def __rmatmul__(self: array[_AtLeast1D], other: object) -> array: ...
 
 class _AtIndexHelper(Generic[_ShapeT_co, _DTypeT_co]):
     def __init__(self, x: array[_ShapeT_co, _DTypeT_co]) -> None: ...
@@ -1102,6 +1102,7 @@ else:
     _Integer: TypeAlias = np.integer[Any]
 
 _Axis: TypeAlias = int | None
+_AtLeast1D: TypeAlias = tuple[int, Unpack[tuple[_Axis, ...]]]
 _2DT = TypeVar("_2DT", tuple[int, int], tuple[int, _Axis])
 _AtLeast1DT = TypeVar(
     "_AtLeast1DT",
@@ -1121,7 +1122,6 @@ _AtLeast1DT = TypeVar(
     tuple[int, _Axis, Unpack[tuple[_Axis, ...]]],
     tuple[int, Unpack[tuple[_Axis, ...]]],
 )
-_AtLeast2D: TypeAlias = tuple[int, int | None, Unpack[tuple[int | None, ...]]]
 _AtLeast2DT = TypeVar(
     "_AtLeast2DT",
     tuple[int, int],
