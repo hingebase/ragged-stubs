@@ -1,0 +1,157 @@
+[workspace]
+channels = ["conda-forge"]
+platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"]
+preview = ["pixi-build"]
+requires-pixi = ">=0.71.0"
+
+[package.build.backend]
+name = "pixi-build-python"
+version = ">=0.6.0"
+channels = ["conda-forge"]
+
+[package.build.config]
+ignore-pypi-mapping = true
+
+[package.host-dependencies]
+uv = ">=0.11.0,<0.12.0"
+
+[package.run-dependencies]
+optype = { version = ">=0.9.2,<0.10.0", when = { any = ["python <3.11.0", "numpy <1.25.0"] } }
+optype-numpy = { version = ">=0.13.3", when = { all = ["python >=3.11.0", "numpy >=1.25.0"] } }
+packaging = ">=14.1.0"
+ragged = "==0.3.0"
+typing-extensions = ">=4.12.0"
+
+[dependencies]
+basedpyright = ">=1.39.8"
+pyrefly = ">=1.1.1"
+ragged-stubs = { path = "." }
+ty = ">=0.0.55"
+
+[environments]
+# Each minor version of numpy and their minimum supported python version
+default = ["py310", "np124", "ruff"]
+py310np125 = ["py310", "np125"]
+py310np126 = ["py310", "np126"]
+py310np20 = ["py310", "np20"]
+py310np21 = ["py310", "np21"]
+py310np22 = ["py310", "np22"]
+py311np23 = ["py311", "np23"]
+py311np24 = ["py311", "np24"]
+py312np25 = ["py312", "np25"]
+# Each minor version of numpy and their maximum supported python version
+py311np124 = ["py311", "np124"]
+py311np125 = ["py311", "np125"]
+py312np126 = ["py312", "np126"]
+py312np20 = ["py312", "np20"]
+py313np21 = ["py313", "np21"]
+py313np22 = ["py313", "np22"]
+py314np23 = ["py314", "np23"]
+py314np24 = ["py314", "np24"]
+py314np25 = ["py314", "np25"]
+
+[feature]
+# We don't require the GIL in a stub-only package actually
+# It's used to keep the diff of `pixi.lock` minimal
+py310 = { dependencies = { python-gil = "3.10.*" } }
+py311 = { dependencies = { python-gil = "3.11.*" } }
+py312 = { dependencies = { python-gil = "3.12.*" } }
+py313 = { dependencies = { python-gil = "3.13.*" } }
+py314 = { dependencies = { python-gil = "3.14.*" } }
+np124 = { dependencies = { numpy = "1.24.*" } }
+np125 = { dependencies = { numpy = "1.25.*" } }
+np126 = { dependencies = { numpy = "1.26.*" } }
+np20 = { dependencies = { numpy = "2.0.*" } }
+np21 = { dependencies = { numpy = "2.1.*" } }
+np22 = { dependencies = { numpy = "2.2.*" } }
+np23 = { dependencies = { numpy = "2.3.*" } }
+np24 = { dependencies = { numpy = "2.4.*" } }
+np25 = { dependencies = { numpy = "2.5.*" } }
+
+[target]
+# Same as above
+linux-64 = { dependencies = { libblas = { build = "*_mkl" } } }
+linux-aarch64 = { dependencies = { libblas = { build = "*_openblas" } } }
+osx-64 = { dependencies = { libblas = { build = "*accelerate" } } }
+osx-arm64 = { dependencies = { libblas = { build = "*accelerate" } } }
+win-64 = { dependencies = { libblas = { build = "*_mkl" } } }
+
+[feature.ruff]
+dependencies = { ruff = ">=0.15.20" }
+tasks = { ruff = "ruff check" }
+
+[tasks]
+basedpyright = { cmd = [
+    "python",
+    "-c",
+    "import runpy, sys; sys.argv = ['basedpyright', '--pythonpath', sys.executable]; runpy.run_module('basedpyright', run_name='__main__')",
+] }
+pyrefly = "pyrefly check"
+ty = { cmd = [
+    "python",
+    "-c",
+    "import runpy, sys; sys.argv = ['ty', 'check', '--python', sys.executable]; runpy.run_module('ty', run_name='__main__')",
+] }
+
+[environments.check]
+features = ["check"]
+no-default-feature = true
+
+[feature.check.tasks]
+check = [
+    { task = "basedpyright", environment = "default" },
+    { task = "pyrefly", environment = "default" },
+    { task = "ruff", environment = "default" },
+    { task = "ty", environment = "default" },
+    { task = "basedpyright", environment = "py310np125" },
+    { task = "pyrefly", environment = "py310np125" },
+    { task = "ty", environment = "py310np125" },
+    { task = "basedpyright", environment = "py310np126" },
+    { task = "pyrefly", environment = "py310np126" },
+    { task = "ty", environment = "py310np126" },
+    { task = "basedpyright", environment = "py310np20" },
+    { task = "pyrefly", environment = "py310np20" },
+    { task = "ty", environment = "py310np20" },
+    { task = "basedpyright", environment = "py310np21" },
+    { task = "pyrefly", environment = "py310np21" },
+    { task = "ty", environment = "py310np21" },
+    { task = "basedpyright", environment = "py310np22" },
+    { task = "pyrefly", environment = "py310np22" },
+    { task = "ty", environment = "py310np22" },
+    { task = "basedpyright", environment = "py311np23" },
+    { task = "pyrefly", environment = "py311np23" },
+    { task = "ty", environment = "py311np23" },
+    { task = "basedpyright", environment = "py311np24" },
+    { task = "pyrefly", environment = "py311np24" },
+    { task = "ty", environment = "py311np24" },
+    { task = "basedpyright", environment = "py312np25" },
+    { task = "pyrefly", environment = "py312np25" },
+    { task = "ty", environment = "py312np25" },
+    { task = "basedpyright", environment = "py311np124" },
+    { task = "pyrefly", environment = "py311np124" },
+    { task = "ty", environment = "py311np124" },
+    { task = "basedpyright", environment = "py311np125" },
+    { task = "pyrefly", environment = "py311np125" },
+    { task = "ty", environment = "py311np125" },
+    { task = "basedpyright", environment = "py312np126" },
+    { task = "pyrefly", environment = "py312np126" },
+    { task = "ty", environment = "py312np126" },
+    { task = "basedpyright", environment = "py312np20" },
+    { task = "pyrefly", environment = "py312np20" },
+    { task = "ty", environment = "py312np20" },
+    { task = "basedpyright", environment = "py313np21" },
+    { task = "pyrefly", environment = "py313np21" },
+    { task = "ty", environment = "py313np21" },
+    { task = "basedpyright", environment = "py313np22" },
+    { task = "pyrefly", environment = "py313np22" },
+    { task = "ty", environment = "py313np22" },
+    { task = "basedpyright", environment = "py314np23" },
+    { task = "pyrefly", environment = "py314np23" },
+    { task = "ty", environment = "py314np23" },
+    { task = "basedpyright", environment = "py314np24" },
+    { task = "pyrefly", environment = "py314np24" },
+    { task = "ty", environment = "py314np24" },
+    { task = "basedpyright", environment = "py314np25" },
+    { task = "pyrefly", environment = "py314np25" },
+    { task = "ty", environment = "py314np25" },
+]

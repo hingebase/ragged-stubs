@@ -9,5 +9,9 @@ wheels/
 # Virtual environments
 .venv
 
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
 # Exclude uv.lock which contains private addresses
 uv.lock
