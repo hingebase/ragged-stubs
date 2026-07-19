@@ -35,7 +35,7 @@ from ._spec_array_object import array
 from ._typing import Dtype
 
 @overload
-def all(  # noqa: A001
+def all(  # ruff: ignore[builtin-variable-shadowing]
     x: array,
     /,
     *,
@@ -43,7 +43,7 @@ def all(  # noqa: A001
     keepdims: Literal[False] = ...,
 ) -> array[Any, Dtype[np.bool_]]: ...
 @overload
-def all(  # noqa: A001
+def all(  # ruff: ignore[builtin-variable-shadowing]
     x: array[_ShapeT],
     /,
     *,
@@ -51,10 +51,10 @@ def all(  # noqa: A001
     keepdims: Literal[True],
 ) -> array[_ShapeT, Dtype[np.bool_]]: ...
 @overload
-def all(x: array, /, *, axis: int | tuple[int, ...] | None = ..., keepdims: bool) -> array[Any, Dtype[np.bool_]]: ...  # noqa: A001
+def all(x: array, /, *, axis: int | tuple[int, ...] | None = ..., keepdims: bool) -> array[Any, Dtype[np.bool_]]: ...  # ruff: ignore[builtin-variable-shadowing]
 
 @overload
-def any(  # noqa: A001
+def any(  # ruff: ignore[builtin-variable-shadowing]
     x: array,
     /,
     *,
@@ -62,7 +62,7 @@ def any(  # noqa: A001
     keepdims: Literal[False] = ...,
 ) -> array[Any, Dtype[np.bool_]]: ...
 @overload
-def any(  # noqa: A001
+def any(  # ruff: ignore[builtin-variable-shadowing]
     x: array[_ShapeT],
     /,
     *,
@@ -70,7 +70,7 @@ def any(  # noqa: A001
     keepdims: Literal[True],
 ) -> array[_ShapeT, Dtype[np.bool_]]: ...
 @overload
-def any(x: array, /, *, axis: int | tuple[int, ...] | None = ..., keepdims: bool) -> array[Any, Dtype[np.bool_]]: ...  # noqa: A001
+def any(x: array, /, *, axis: int | tuple[int, ...] | None = ..., keepdims: bool) -> array[Any, Dtype[np.bool_]]: ...  # ruff: ignore[builtin-variable-shadowing]
 
 _Axis: TypeAlias = int | None
 _ShapeT = TypeVar(

@@ -26,7 +26,7 @@ typing-extensions = ">=4.12.0"
 basedpyright = ">=1.39.8"
 pyrefly = ">=1.1.1"
 ragged-stubs = { path = "." }
-ty = ">=0.0.55"
+ty = ">=0.0.61"
 
 [environments]
 # Each minor version of numpy and their minimum supported python version
@@ -77,7 +77,7 @@ osx-arm64 = { dependencies = { libblas = { build = "*accelerate" } } }
 win-64 = { dependencies = { libblas = { build = "*_mkl" } } }
 
 [feature.ruff]
-dependencies = { ruff = ">=0.15.20" }
+dependencies = { ruff = ">=0.15.22" }
 tasks = { ruff = "ruff check" }
 
 [tasks]

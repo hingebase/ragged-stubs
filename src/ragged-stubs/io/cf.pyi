@@ -38,7 +38,7 @@ from typing import Any, TypeAlias, TypeVar
 
 import numpy as np
 from ragged._spec_array_object import array
-from ragged._typing import Dtype  # noqa: PLC2701
+from ragged._typing import Dtype  # ruff: ignore[import-private-name]
 
 def to_cf_contiguous(
     x: array[tuple[int, int | None], _DTypeT],

@@ -36,7 +36,7 @@ from ._spec_array_object import array
 from ._typing import Dtype
 
 @overload
-def max(  # noqa: A001
+def max(  # ruff: ignore[builtin-variable-shadowing]
     x: array[Any, _DTypeT],
     /,
     *,
@@ -44,7 +44,7 @@ def max(  # noqa: A001
     keepdims: Literal[False] = ...,
 ) -> array[Any, _DTypeT]: ...
 @overload
-def max(  # noqa: A001
+def max(  # ruff: ignore[builtin-variable-shadowing]
     x: array[_ShapeT, _DTypeT],
     /,
     *,
@@ -52,7 +52,7 @@ def max(  # noqa: A001
     keepdims: Literal[True],
 ) -> array[_ShapeT, _DTypeT]: ...
 @overload
-def max(  # noqa: A001
+def max(  # ruff: ignore[builtin-variable-shadowing]
     x: array[Any, _DTypeT],
     /,
     *,
@@ -86,7 +86,7 @@ def mean(
 ) -> array[Any, _DTypeT]: ...
 
 @overload
-def min(  # noqa: A001
+def min(  # ruff: ignore[builtin-variable-shadowing]
     x: array[Any, _DTypeT],
     /,
     *,
@@ -94,7 +94,7 @@ def min(  # noqa: A001
     keepdims: Literal[False] = ...,
 ) -> array[Any, _DTypeT]: ...
 @overload
-def min(  # noqa: A001
+def min(  # ruff: ignore[builtin-variable-shadowing]
     x: array[_ShapeT, _DTypeT],
     /,
     *,
@@ -102,7 +102,7 @@ def min(  # noqa: A001
     keepdims: Literal[True],
 ) -> array[_ShapeT, _DTypeT]: ...
 @overload
-def min(  # noqa: A001
+def min(  # ruff: ignore[builtin-variable-shadowing]
     x: array[Any, _DTypeT],
     /,
     *,
@@ -236,7 +236,7 @@ def std(
 ) -> array[Any, Dtype[np.float64]]: ...
 
 @overload
-def sum(  # noqa: A001
+def sum(  # ruff: ignore[builtin-variable-shadowing]
     x: array,
     /,
     *,
@@ -245,7 +245,7 @@ def sum(  # noqa: A001
     keepdims: Literal[False] = ...,
 ) -> array[Any, Dtype[np.int64 | np.uint64 | np.float64 | np.complex128]]: ...
 @overload
-def sum(  # noqa: A001
+def sum(  # ruff: ignore[builtin-variable-shadowing]
     x: array[_ShapeT],
     /,
     *,
@@ -254,7 +254,7 @@ def sum(  # noqa: A001
     keepdims: Literal[True],
 ) -> array[_ShapeT, Dtype[np.int64 | np.uint64 | np.float64 | np.complex128]]: ...
 @overload
-def sum(  # noqa: A001
+def sum(  # ruff: ignore[builtin-variable-shadowing]
     x: array,
     /,
     *,
