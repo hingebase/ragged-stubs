@@ -30,7 +30,7 @@ import enum
 import sys
 import types
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sized
-from typing import Generic, Literal, SupportsAbs, SupportsComplex, SupportsFloat, SupportsIndex, SupportsInt, TypeAlias
+from typing import Generic, Literal, SupportsAbs, SupportsIndex, TypeAlias
 
 import numpy as np
 import optype as op
@@ -40,14 +40,10 @@ from typing_extensions import Any, CapsuleType, Self, TypeVar, Unpack, overload,
 
 from ._typing import Device, Dtype, Shape
 
-class array(  # noqa: N801
+class array(  # ruff: ignore[invalid-class-name]
     CanDLPackCompat,
     CanDLPackDevice[enum.Enum, int],
     SupportsAbs[array[_ShapeT_co, _DTypeT_co]],
-    SupportsComplex,
-    SupportsFloat,
-    SupportsIndex,
-    SupportsInt,
     Sized,
     Generic[_ShapeT_co, _DTypeT_co],
 ):
@@ -591,9 +587,9 @@ class array(  # noqa: N801
     ) -> None: ...
 
     @override
-    def __str__(self) -> str: ...  # noqa: PYI029
+    def __str__(self) -> str: ...  # ruff: ignore[str-or-repr-defined-in-stub]
     @override
-    def __repr__(self) -> str: ...  # noqa: PYI029
+    def __repr__(self) -> str: ...  # ruff: ignore[str-or-repr-defined-in-stub]
     def __contains__(self, other: complex) -> bool: ...
     @override
     def __len__(self) -> int: ...
@@ -628,7 +624,7 @@ class array(  # noqa: N801
     @property
     def device(self) -> Device: ...
     @property
-    def mT(self: array[_AtLeast2DT, _DTypeT]) -> array[_AtLeast2DT, _DTypeT]: ...  # noqa: N802
+    def mT(self: array[_AtLeast2DT, _DTypeT]) -> array[_AtLeast2DT, _DTypeT]: ...  # ruff: ignore[invalid-function-name]
     @property
     def ndim(self) -> int: ...
     @property
@@ -636,7 +632,7 @@ class array(  # noqa: N801
     @property
     def size(self) -> int: ...
     @property
-    def T(self: array[_2DT, _DTypeT]) -> array[_2DT, _DTypeT]: ...  # noqa: N802
+    def T(self: array[_2DT, _DTypeT]) -> array[_2DT, _DTypeT]: ...  # ruff: ignore[invalid-function-name]
     @override
     def __abs__(self) -> Self: ...
 
@@ -655,7 +651,7 @@ class array(  # noqa: N801
     def __and__(self: _BoolOrIntArray, other: object) -> _BoolOrIntArray: ...
 
     # https://data-apis.org/array-api/latest/API_specification/generated/array_api.array.__array_namespace__.html
-    def __array_namespace__(self, *, api_version: str | None = ...) -> Any: ...  # noqa: ANN401
+    def __array_namespace__(self, *, api_version: str | None = ...) -> Any: ...  # ruff: ignore[any-type]
 
     # These special methods are not meant to be called explicitly,
     # and we haven't seen any necessity to return `Any`
@@ -675,7 +671,6 @@ class array(  # noqa: N801
     ) -> object: ...
 
     def __bool__(self) -> bool: ...
-    @override
     def __complex__(self: array[tuple[()]]) -> complex: ...
 
     # https://data-apis.org/array-api/latest/API_specification/generated/array_api.array.__dlpack__.html
@@ -697,7 +692,6 @@ class array(  # noqa: N801
     @overload
     def __eq__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
 
-    @override
     def __float__(self: array[tuple[()], _RealDType]) -> float: ...
 
     @overload
@@ -727,9 +721,7 @@ class array(  # noqa: N801
     @overload
     def __gt__(self, other: object, /) -> array[Any, Dtype[np.bool_]]: ...
 
-    @override
     def __index__(self: array[tuple[()], Dtype[_Integer]]) -> int: ...
-    @override
     def __int__(self: array[tuple[()], _RealDType]) -> int: ...
     def __invert__(self: array[_ShapeT, _BoolOrIntDTypeT]) -> array[_ShapeT, _BoolOrIntDTypeT]: ...
 
@@ -848,7 +840,7 @@ class array(  # noqa: N801
     def __xor__(self: _BoolOrIntArray, other: object) -> _BoolOrIntArray: ...
 
     # https://data-apis.org/array-api/latest/API_specification/generated/array_api.array.to_device.html
-    def to_device(self, device: Device, /, *, stream: int | Any | None = ...) -> Self: ...  # noqa: ANN401
+    def to_device(self, device: Device, /, *, stream: int | Any | None = ...) -> Self: ...  # ruff: ignore[any-type]
 
     @property
     def at(self) -> _AtIndexHelper[_ShapeT_co, _DTypeT_co]: ...
