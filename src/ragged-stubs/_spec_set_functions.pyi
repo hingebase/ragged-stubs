@@ -34,7 +34,7 @@ from typing_extensions import NamedTuple
 from ._spec_array_object import array
 from ._typing import Dtype
 
-class unique_all_result(NamedTuple, Generic[_DTypeT_co]):  # noqa: N801
+class unique_all_result(NamedTuple, Generic[_DTypeT_co]):  # ruff: ignore[invalid-class-name]
     values: array[tuple[int], _DTypeT_co]
     indices: array[tuple[int], Dtype[np.int64]]
     inverse_indices: array[tuple[int], Dtype[np.int64]]
@@ -42,13 +42,13 @@ class unique_all_result(NamedTuple, Generic[_DTypeT_co]):  # noqa: N801
 
 def unique_all(x: array[Any, _DTypeT], /) -> unique_all_result[_DTypeT]: ...
 
-class unique_counts_result(NamedTuple, Generic[_DTypeT_co]):  # noqa: N801
+class unique_counts_result(NamedTuple, Generic[_DTypeT_co]):  # ruff: ignore[invalid-class-name]
     values: array[tuple[int], _DTypeT_co]
     counts: array[tuple[int], Dtype[np.int64]]
 
 def unique_counts(x: array[Any, _DTypeT], /) -> unique_counts_result[_DTypeT]: ...
 
-class unique_inverse_result(NamedTuple, Generic[_DTypeT_co]):  # noqa: N801
+class unique_inverse_result(NamedTuple, Generic[_DTypeT_co]):  # ruff: ignore[invalid-class-name]
     values: array[tuple[int], _DTypeT_co]
     inverse_indices: array[tuple[int], Dtype[np.int64]]
 

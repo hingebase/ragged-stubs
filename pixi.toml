@@ -13,7 +13,7 @@ channels = ["conda-forge"]
 ignore-pypi-mapping = true
 
 [package.host-dependencies]
-uv = ">=0.11.0,<0.12.0"
+uv = ">=0.12.0,<0.13.0"
 
 [package.run-dependencies]
 optype = { version = ">=0.9.2,<0.10.0", when = { any = ["python <3.11.0", "numpy <1.25.0"] } }
@@ -24,9 +24,9 @@ typing-extensions = ">=4.12.0"
 
 [dependencies]
 basedpyright = ">=1.39.8"
-pyrefly = ">=1.1.1"
+pyrefly = ">=1.2.0"
 ragged-stubs = { path = "." }
-ty = ">=0.0.55"
+ty = ">=0.0.71"
 
 [environments]
 # Each minor version of numpy and their minimum supported python version
@@ -77,7 +77,7 @@ osx-arm64 = { dependencies = { libblas = { build = "*accelerate" } } }
 win-64 = { dependencies = { libblas = { build = "*_mkl" } } }
 
 [feature.ruff]
-dependencies = { ruff = ">=0.15.20" }
+dependencies = { ruff = ">=0.16.2" }
 tasks = { ruff = "ruff check" }
 
 [tasks]

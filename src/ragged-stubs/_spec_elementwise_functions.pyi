@@ -35,7 +35,7 @@ from typing_extensions import TypeAliasType
 from ._spec_array_object import array
 from ._typing import Dtype, Shape
 
-def abs(x: _ArrayT, /) -> _ArrayT: ...  # noqa: A001
+def abs(x: _ArrayT, /) -> _ArrayT: ...  # ruff: ignore[builtin-variable-shadowing]
 
 @overload
 def acos(x: _InexactArrayT, /) -> _InexactArrayT: ...
@@ -206,7 +206,7 @@ def multiply(x1: array, x2: array, /) -> array: ...
 def negative(x: _NumericArrayT, /) -> _NumericArrayT: ...
 def not_equal(x1: array, x2: array, /) -> _BoolArray: ...
 def positive(x: _NumericArrayT, /) -> _NumericArrayT: ...
-def pow(x1: array, x2: array, /) -> _NumericArray: ...  # noqa: A001
+def pow(x1: array, x2: array, /) -> _NumericArray: ...  # ruff: ignore[builtin-variable-shadowing]
 
 @overload
 def real(x: array[_ShapeT, Dtype[np.complex128]], /) -> _Float64Array[_ShapeT]: ...
@@ -218,13 +218,13 @@ def real(x: array[_ShapeT, Dtype[np.int64 | np.uint64 | np.float64 | np.complex6
 def remainder(x1: _RealArray, x2: _RealArray, /) -> _NDArray[_Integer | _Floating]: ...
 
 @overload
-def round(x: _InexactArrayT, /) -> _InexactArrayT: ...  # noqa: A001
+def round(x: _InexactArrayT, /) -> _InexactArrayT: ...  # ruff: ignore[builtin-variable-shadowing]
 @overload
-def round(x: _ToFloat16Array[_ShapeT], /) -> _Float16Array[_ShapeT]: ...  # noqa: A001
+def round(x: _ToFloat16Array[_ShapeT], /) -> _Float16Array[_ShapeT]: ...  # ruff: ignore[builtin-variable-shadowing]
 @overload
-def round(x: _ToFloat32Array[_ShapeT], /) -> _Float32Array[_ShapeT]: ...  # noqa: A001
+def round(x: _ToFloat32Array[_ShapeT], /) -> _Float32Array[_ShapeT]: ...  # ruff: ignore[builtin-variable-shadowing]
 @overload
-def round(x: _ToFloat64Array[_ShapeT], /) -> _Float64Array[_ShapeT]: ...  # noqa: A001
+def round(x: _ToFloat64Array[_ShapeT], /) -> _Float64Array[_ShapeT]: ...  # ruff: ignore[builtin-variable-shadowing]
 
 def sign(x: _NumericArrayT, /) -> _NumericArrayT: ...
 

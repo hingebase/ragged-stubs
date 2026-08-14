@@ -26,7 +26,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-__all__ = [  # noqa: RUF022
+__all__ = [  # ruff: ignore[unsorted-dunder-all]
     "__array_api_version__",
     # io
     "io",
@@ -205,7 +205,7 @@ from ._spec_data_type_functions import (
     result_type,
 )
 from ._spec_elementwise_functions import (
-    abs,  # noqa: A004
+    abs,  # ruff: ignore[builtin-import-shadowing]
     acos,
     acosh,
     add,
@@ -251,10 +251,10 @@ from ._spec_elementwise_functions import (
     negative,
     not_equal,
     positive,
-    pow,  # noqa: A004
+    pow,  # ruff: ignore[builtin-import-shadowing]
     real,
     remainder,
-    round,  # noqa: A004
+    round,  # ruff: ignore[builtin-import-shadowing]
     sign,
     sin,
     sinh,
@@ -303,17 +303,17 @@ from ._spec_sorting_functions import (
     sort,
 )
 from ._spec_statistical_functions import (
-    max,  # noqa: A004
+    max,  # ruff: ignore[builtin-import-shadowing]
     mean,
-    min,  # noqa: A004
+    min,  # ruff: ignore[builtin-import-shadowing]
     prod,
     std,
-    sum,  # noqa: A004
+    sum,  # ruff: ignore[builtin-import-shadowing]
     var,
 )
 from ._spec_utility_functions import (
-    all,  # noqa: A004
-    any,  # noqa: A004
+    all,  # ruff: ignore[builtin-import-shadowing]
+    any,  # ruff: ignore[builtin-import-shadowing]
 )
 from ._version import version as __version__
 

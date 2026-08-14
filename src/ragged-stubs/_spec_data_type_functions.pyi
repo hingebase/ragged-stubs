@@ -79,7 +79,7 @@ def astype(x: array[_ShapeT], dtype: type[Any] | str, /, *, copy: bool = ...) ->
 def can_cast(from_: object, to: npt.DTypeLike, /) -> bool: ...
 
 @dataclasses.dataclass
-class finfo_object(Generic[_FloatingT_co]):  # noqa: N801
+class finfo_object(Generic[_FloatingT_co]):  # ruff: ignore[invalid-class-name]
     bits: int
     eps: _FloatingT_co
     max: _FloatingT_co
@@ -95,7 +95,7 @@ def finfo(type: onp.AnyFloat32DType | onp.AnyComplex64DType) -> finfo_object[np.
 def finfo(type: onp.AnyFloat64DType | onp.AnyComplex128DType) -> finfo_object[np.float64]: ...
 
 @dataclasses.dataclass
-class iinfo_object(Generic[_IntegerT_co]):  # noqa: N801
+class iinfo_object(Generic[_IntegerT_co]):  # ruff: ignore[invalid-class-name]
     bits: int
     max: int
     min: int
