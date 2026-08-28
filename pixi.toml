@@ -75,17 +75,8 @@ np25 = { dependencies = { numpy = "2.5.*" } }
 # Same as above
 linux-64 = { dependencies = { libblas = { build = "*_mkl" } } }
 linux-aarch64 = { dependencies = { libblas = { build = "*_openblas" } } }
-osx-64 = { dependencies = { libblas = { build = "*accelerate" } } }
-osx-arm64 = { dependencies = { libblas = { build = "*accelerate" } } }
+osx = { dependencies = { libblas = { build = "*accelerate" } } }
 win-64 = { dependencies = { libblas = { build = "*_mkl" } } }
-
-[feature.lint.dependencies]
-ruff = ">=0.16.2"
-tombi = ">=1.2.10"
-
-[feature.lint.tasks]
-ruff = "ruff check"
-tombi = "tombi lint"
 
 [tasks]
 basedpyright = { cmd = [
@@ -100,11 +91,13 @@ ty = { cmd = [
     "import runpy, sys; sys.argv = ['ty', 'check', '--python', sys.executable]; runpy.run_module('ty', run_name='__main__')",
 ] }
 
-[environments.check]
-features = ["check"]
-no-default-feature = true
+[feature.lint.dependencies]
+ruff = ">=0.16.2"
+tombi = ">=1.2.10"
 
-[feature.check.tasks]
+[feature.lint.tasks]
+ruff = "ruff check"
+tombi = "tombi lint"
 check = [
     { task = "basedpyright", environment = "default" },
     { task = "pyrefly", environment = "default" },
