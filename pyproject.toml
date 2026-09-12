@@ -38,6 +38,10 @@ dependencies = [
 
 [dependency-groups]
 numtype = ["numtype <2.2.4"]
+pyrefly = [
+    "pyrefly >=1.3.0",
+    "pyrefly-numpy-stubs >=1.3.0",
+]
 
 [[project.authors]]
 name = "hingebase"
@@ -68,6 +72,14 @@ tables-out-of-order = "off"
 
 [tool.ty.rules]
 all = "error"
+
+[tool.uv]
+conflicts = [
+    [{ group = "numtype" }, { group = "pyrefly" }],
+]
+
+[tool.uv.dependency-groups]
+pyrefly = { requires-python = ">=3.12" }
 
 [[tool.uv.index]]
 name = "testpypi"
