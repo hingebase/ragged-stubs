@@ -26,10 +26,10 @@ ragged = "==0.3.0"
 typing-extensions = ">=4.12.0"
 
 [dependencies]
-basedpyright = ">=1.39.8"
-pyrefly = ">=1.2.0"
+basedpyright = ">=1.39.10"
+pyrefly = ">=1.3.0"
 ragged-stubs = { path = "." }
-ty = ">=0.0.71"
+ty = ">=0.0.80"
 
 [environments]
 # Each minor version of numpy and their minimum supported python version
@@ -88,12 +88,13 @@ pyrefly = "pyrefly check"
 ty = { cmd = [
     "python",
     "-c",
-    "import runpy, sys; sys.argv = ['ty', 'check', '--python', sys.executable]; runpy.run_module('ty', run_name='__main__')",
+    # os.exec* messes up the terminal on Windows
+    "import subprocess, sys; sys.exit(subprocess.call(['ty', 'check', '--python', sys.executable]))",
 ] }
 
 [feature.lint.dependencies]
-ruff = ">=0.16.2"
-tombi = ">=1.2.10"
+ruff = ">=0.16.7"
+tombi = ">=1.5.2"
 
 [feature.lint.tasks]
 ruff = "ruff check"
