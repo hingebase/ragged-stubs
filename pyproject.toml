@@ -1,5 +1,5 @@
 [build-system]
-requires = ["uv-build >=0.13.0,<0.14.0"]
+requires = ["uv-build >=0.13.4,<0.14.0"]
 build-backend = "uv_build"
 
 [project]
@@ -79,6 +79,7 @@ all = "error"
 conflicts = [
     [{ group = "numtype" }, { group = "pyrefly" }],
 ]
+required-version = ">=0.13.4"
 
 [tool.uv.dependency-groups]
 pyrefly = { requires-python = ">=3.12" }

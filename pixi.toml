@@ -1,22 +1,22 @@
 # This should match the minimum supported Pixi version
-#:schema https://pixi.prefix.dev/v0.71.0/schema/manifest/schema.json
+#:schema https://pixi.prefix.dev/v0.82.1/schema/manifest/schema.json
 
 [workspace]
 channels = ["conda-forge"]
 platforms = ["linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"]
 preview = ["pixi-build"]
-requires-pixi = ">=0.71.0"
+requires-pixi = ">=0.82.1"
 
 [package.build.backend]
 name = "pixi-build-python"
-version = ">=0.6.0"
+version = ">=0.8.6"
 channels = ["conda-forge"]
 
 [package.build.config]
 ignore-pypi-mapping = true
 
 [package.host-dependencies]
-uv = ">=0.13.0,<0.14.0"
+uv = ">=0.13.4,<0.14.0"
 
 [package.run-dependencies]
 optype = { version = ">=0.9.2,<0.10.0", when = { any = ["python <3.11.0", "numpy <1.25.0"] } }
