@@ -1,5 +1,5 @@
 [build-system]
-requires = ["uv-build >=0.12.0,<0.13.0"]
+requires = ["uv-build >=0.13.4,<0.14.0"]
 build-backend = "uv_build"
 
 [project]
@@ -22,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Topic :: Scientific/Engineering :: Information Analysis",
     "Topic :: Scientific/Engineering :: Mathematics",
     "Topic :: Scientific/Engineering :: Physics",
@@ -39,8 +40,9 @@ dependencies = [
 [dependency-groups]
 numtype = ["numtype <2.2.4"]
 pyrefly = [
-    "pyrefly >=1.3.0",
-    "pyrefly-numpy-stubs >=1.3.0",
+    # pyrefly-numpy-stubs 1.4.0 requires dropping support for numpy <2.2.0
+    "pyrefly ==1.3.2",
+    "pyrefly-numpy-stubs ==1.3.2",
 ]
 
 [[project.authors]]
@@ -78,6 +80,7 @@ all = "error"
 conflicts = [
     [{ group = "numtype" }, { group = "pyrefly" }],
 ]
+required-version = ">=0.13.4"
 
 [tool.uv.dependency-groups]
 numtype = { requires-python = "<3.14" }
